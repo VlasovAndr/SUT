@@ -577,30 +577,41 @@ namespace WebApp
         }
     }
 
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.3.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Product
     {
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Id { get; set; }
 
+        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; }
 
+        [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Description { get; set; }
 
+        [Newtonsoft.Json.JsonProperty("price", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Price { get; set; }
 
+        [Newtonsoft.Json.JsonProperty("productType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public ProductType ProductType { get; set; }
 
     }
 
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.3.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public enum ProductType
     {
 
-        _0 = 0,
+        [System.Runtime.Serialization.EnumMember(Value = @"CPU")]
+        CPU = 0,
 
-        _1 = 1,
+        [System.Runtime.Serialization.EnumMember(Value = @"MONITOR")]
+        MONITOR = 1,
 
-        _2 = 2,
+        [System.Runtime.Serialization.EnumMember(Value = @"PERIPHARALS")]
+        PERIPHARALS = 2,
 
-        _3 = 3,
+        [System.Runtime.Serialization.EnumMember(Value = @"EXTERNAL")]
+        EXTERNAL = 3,
 
     }
 

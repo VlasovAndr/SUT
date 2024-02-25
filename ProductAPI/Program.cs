@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using ProductAPI;
 using ProductAPI.Data;
 using ProductAPI.Repository;
 
@@ -10,7 +11,10 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c=>
+{
+    c.SchemaFilter<EnumSchemaFilter>();
+});
 builder.Services.AddDbContext<ProductDbContext>(x => x.UseSqlite(connectionString));
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 
@@ -22,7 +26,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    // a.Database.EnsureCreated();
+	// a.Database.EnsureCreated();
 }
 
 app.UseHttpsRedirection();
