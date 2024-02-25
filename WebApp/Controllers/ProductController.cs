@@ -1,9 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebApp.Producer;
 
 namespace WebApp.Controllers
 {
 	public class ProductController : Controller
 	{
+		private readonly IProductService productService;
+
+		public ProductController(IProductService productService)
+		{
+			this.productService = productService;
+		}
+
 		public IActionResult Index()
 		{
 			return View();
@@ -11,10 +19,9 @@ namespace WebApp.Controllers
 
 		public async Task<IActionResult> List()
 		{
-			var productClient = new ProductAPI("https://localhost:7036", new HttpClient());
-			var product = await productClient.GetProductsAsync();
+			var products = await productService.GetProducts();
 
-			return View(product);
+			return View(products);
 		}
 
 		public IActionResult Create()
@@ -25,25 +32,22 @@ namespace WebApp.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Create(Product product)
 		{
-			var productClient = new ProductAPI("https://localhost:7036", new HttpClient());
-			await productClient.CreateAsync(product);
+			await productService.CreateProduct(product);
 
 			return RedirectToAction("List");
 		}
 
 		public async Task<IActionResult> Edit(int id)
 		{
-			var productClient = new ProductAPI("https://localhost:7036", new HttpClient());
-			var result = await productClient.GetProductByIdAsync(id);
-			
+			var result = await productService.GetProductById(id);
+
 			return View(result);
 		}
 
 		[HttpPost]
 		public async Task<IActionResult> Edit(Product product)
 		{
-			var productClient = new ProductAPI("https://localhost:7036", new HttpClient());
-			await productClient.UpdateAsync(product);
+			await productService.EditProduct(product);
 
 			return RedirectToAction("List");
 		}
