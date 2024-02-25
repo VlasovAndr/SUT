@@ -51,5 +51,33 @@ namespace WebApp.Controllers
 
 			return RedirectToAction("List");
 		}
+
+		public async Task<IActionResult> Delete(int id)
+		{
+			var result = await productService.GetProductById(id);
+
+			return View(result);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Delete(int id, Product product)
+		{
+			try
+			{
+				await productService.DeleteProduct(id);
+				return RedirectToAction("List");
+			}
+			catch (Exception)
+			{
+				return View();
+			}
+		}
+
+		public async Task<IActionResult> Details(int id)
+		{
+			var result = await productService.GetProductById(id);
+
+			return View(result);
+		}
 	}
 }
