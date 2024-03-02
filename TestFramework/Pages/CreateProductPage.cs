@@ -1,7 +1,7 @@
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using ProductAPI.Data;
 using TestFramework.Driver;
+using TestFramework.Extensions;
 
 namespace TestFramework.Pages;
 
@@ -25,8 +25,7 @@ public class CreateProductPage : ICreateProductPage
         txtName.SendKeys(product.Name);
         txtDescription.SendKeys(product.Description);
         txtPrice.SendKeys(product.Price.ToString());
-        var select = new SelectElement(ddlProductType);
-        select.SelectByText(product.ProductType.ToString());
+        ddlProductType.SelectFromDropDownByText(product.ProductType.ToString());
         btnCreate.Click();
     }
 }
