@@ -7,14 +7,16 @@ namespace TestProject
 {
     public class UnitTest1 : IDisposable
     {
-        private readonly IDriverFixture driverFixture;
+        private readonly IHomePage homePage;
+        private readonly ICreateProductPage createProductPage;
         private readonly IWebDriver driver;
 
-        public UnitTest1(IDriverFixture driverFixture)
+        public UnitTest1(IDriverFixture driverFixture, IHomePage homePage, ICreateProductPage createProductPage)
         {
             driver = driverFixture.Driver;
             driver.Navigate().GoToUrl("http://localhost:5087/");
-            this.driverFixture = driverFixture;
+            this.homePage = homePage;
+            this.createProductPage = createProductPage;
         }
 
         public void Dispose()
@@ -26,9 +28,6 @@ namespace TestProject
         [Fact]
         public void Test1()
         {
-            HomePage homePage = new HomePage(driverFixture);
-            CreateProductPage createProductPage = new CreateProductPage(driverFixture);
-
             homePage.CreateProduct();
             createProductPage.EnterProductDetails(new Product
             {
