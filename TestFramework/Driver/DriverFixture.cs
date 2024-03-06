@@ -3,7 +3,7 @@ using TestFramework.Settings;
 
 namespace TestFramework.Driver;
 
-public class DriverFixture : IDriverFixture
+public class DriverFixture : IDriverFixture, IDisposable
 {
     private IWebDriver driver;
     private readonly TestSettings settings;
@@ -15,6 +15,7 @@ public class DriverFixture : IDriverFixture
         this.settings = settings;
         this.browserDriver = browserDriver;
         driver = GetWebDriver();
+        driver.Navigate().GoToUrl(settings.ApplicationUrl);
     }
 
     public IWebDriver Driver => driver;
@@ -28,5 +29,11 @@ public class DriverFixture : IDriverFixture
             _ => browserDriver.GetChromeDriver()
         };
     }
+
+    public void Dispose()
+    {
+        driver.Quit();
+    }
+
 }
 
