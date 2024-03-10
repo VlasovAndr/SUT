@@ -17,4 +17,25 @@ public class HomePage : IHomePage
         lnkProduct.Click();
         lnkCreate.Click();
     }
+
+    public void PerformClickOnSpecialValue(string itemName, string operation)
+    {
+        var columnIndex = GetColumnIndexByName("Name");
+
+        driver
+        .FindElement(By.XPath($"//table/tbody/tr/td[{columnIndex}][contains(text(),'{itemName}')]/..//td[6]/a[text() = '{operation}']"))
+        .Click();
+    }
+
+    private int GetColumnIndexByName(string columnName)
+    {
+        var columns = driver.FindElements(By.XPath("//table/thead//th")).ToList();
+        return columns.FindIndex(x => x.Text == columnName) + 1;
+    }
+
+    private int GetRowIndexByColumnNameAndValue(int columnIndex, string value)
+    {
+        var cellValues = driver.FindElements(By.XPath($"//table/tbody/tr/td[{columnIndex}]")).ToList();
+        return cellValues.FindIndex(x => x.Text == value) + 1;
+    }
 }
