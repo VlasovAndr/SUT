@@ -13,6 +13,6 @@ public class Startup
         services.AddScoped<IDriverFixture, DriverFixture>();
         services.AddScoped<IBrowserDriver, BrowserDriver>();
         services.AddScoped<IHomePage, HomePage>();
-        services.AddScoped<ICreateProductPage, CreateProductPage>();
+        services.AddScoped<IProductPage, ProductPage>();
     }
 }
