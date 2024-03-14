@@ -18,6 +18,16 @@ public class HomePage : IHomePage
         lnkCreate.Click();
     }
 
+    public void ClickProduct()
+    {
+        lnkProduct.Click();
+    }
+
+    public void ClickCreate()
+    {
+        lnkCreate.Click();
+    }
+
     public void PerformClickOnSpecialValue(string itemName, string operation)
     {
         var columnIndex = GetColumnIndexByName("Name");
