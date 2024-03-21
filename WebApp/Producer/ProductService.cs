@@ -4,7 +4,7 @@ public class ProductService : IProductService
 {
 	private readonly ProductAPI _productApiClient;
 
-	public ProductService() => _productApiClient = new ProductAPI("https://localhost:7036", new HttpClient());
+	public ProductService() => _productApiClient = new ProductAPI("http://eaapi:8001", new HttpClient());
 
 	public async Task<Product> CreateProduct(Product product)
 	{
