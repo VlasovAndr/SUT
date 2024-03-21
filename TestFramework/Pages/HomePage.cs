@@ -10,7 +10,7 @@ public class HomePage : IHomePage
     public HomePage(IDriverFixture driverFixture) => driver = driverFixture.Driver;
 
     IWebElement lnkProduct => driver.FindElement(By.LinkText("Product"));
-    IWebElement lnkCreate => driver.FindElement(By.LinkText("Create"));
+    IWebElement lnkCreate => driver.FindElement(By.LinkText("Create New"));
 
     public void CreateProduct()
     {
