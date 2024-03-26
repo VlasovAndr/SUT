@@ -7,7 +7,7 @@ Background:
 		| Monitor    | HD monitor         | 400   | MONITOR     |
 		| Headphones | Noise cancellation | 300   | PERIPHARALS |
 
-@mytag @retry(4)
+@mytag
 Scenario: Create product and verify the details
 	Given I click the Product menu
 	And I click the "Create" link
