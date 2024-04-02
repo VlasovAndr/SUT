@@ -23,10 +23,13 @@ public static class Startup
         var services = new ServiceCollection();
 
         string projectPath = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { @"bin\" }, StringSplitOptions.None)[0];
-
+        
+        var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        environmentName = environmentName ?? "local";
         IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(projectPath)
-                .AddJsonFile($"appsettings.json", optional: true)
+                .AddJsonFile($"appsettings.{environmentName}.json", optional: true)
+                .AddEnvironmentVariables()
                 .Build();
 
         string connectionString = configuration.GetConnectionString("DefaultConnection");
@@ -44,12 +47,12 @@ public static class Startup
     private static TestSettings ReadConfig()
     {
         var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        environmentName = environmentName == null ? "local" : environmentName;
 
         var configFile = File
                         .ReadAllText(Path.GetDirectoryName(
                             Assembly.GetExecutingAssembly().Location)
-                        //+ $"/appsettings.{environmentName}.json");
-                        + $"/appsettings{environmentName}.json");
+                        + $"/appsettings.{environmentName}.json");
 
         var jsonSerializeOptions = new JsonSerializerOptions()
         {

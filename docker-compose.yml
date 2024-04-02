@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: ProductAPI/Dockerfile
-    restart: on-failure      
+    restart: on-failure
     ports:
       - 5000:8001
     depends_on:
@@ -20,12 +20,12 @@ services:
     build:
       context: .
       dockerfile: WebApp/Dockerfile
-    restart: on-failure      
+    restart: on-failure
     ports:
       - 5001:8000
-    depends_on: 
+    depends_on:
       - ea_api
-    networks: 
+    networks:
       - ea_network
 
   db:
@@ -36,24 +36,24 @@ services:
     container_name: sqlserver
     hostname: sqlserver
     ports:
-    - "1433:1433"
+      - "1433:1433"
     networks:
       - ea_network
 
-  # ea_test:
-  #   image: ea_test
-  #   container_name: eatest
-  #   build:
-  #     context: .
-  #     dockerfile: EATestBDD/Dockerfile
-  #   restart: on-failure
-  #   depends_on:
-  #     - ea_api
-  #     - selenium-hub
-  #   environment:
-  #     - ASPNETCORE_ENVIRONMENT=remote
-  #   networks:
-  #     - ea_network
+  ea_test:
+    image: ea_test
+    container_name: ea_test
+    build:
+      context: .
+      dockerfile: TestProjectBDD/Dockerfile
+    restart: on-failure
+    depends_on:
+      - ea_api
+      - selenium-hub
+    environment:
+      - ASPNETCORE_ENVIRONMENT=remote
+    networks:
+      - ea_network
 
   # ea_int_test:
   #   image: ea_int_test
@@ -64,29 +64,30 @@ services:
   #   networks:
   #     - ea_network
 
-  # node-docker:
-  #   image: selenium/node-docker:4.1.1-20211217
-  #   volumes:
-  #     - ./assets:/opt/selenium/assets
-  #     - ./GridConfig/config.toml:/opt/bin/config.toml
-  #   depends_on:
-  #     - selenium-hub
-  #   environment:
-  #     - SE_EVENT_BUS_HOST=selenium-hub
-  #     - SE_EVENT_BUS_PUBLISH_PORT=4442
-  #     - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-  #   networks:
-  #     - ea_network
+  node-docker:
+    image: selenium/node-docker:4.1.1-20211217
+    volumes:
+      - ./assets:/opt/selenium/assets
+      - ./GridConfig/config.toml:/opt/bin/config.toml
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_ENABLE_BROWSER_LEFTOVERS_CLEANUP=true
+    networks:
+      - ea_network
 
-  # selenium-hub:
-  #   image: selenium/hub:4.1.1-20211217
-  #   container_name: selenium-hub
-  #   ports:
-  #     - "4442:4442"
-  #     - "4443:4443"
-  #     - "4448:4444"
-  #   networks:
-  #     - ea_network
+  selenium-hub:
+    image: selenium/hub:4.1.1-20211217
+    container_name: selenium-hub
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4448:4444"
+    networks:
+      - ea_network
 
-networks: 
-   ea_network:
+networks:
+  ea_network:

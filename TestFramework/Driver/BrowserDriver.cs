@@ -20,5 +20,7 @@ public class BrowserDriver : IBrowserDriver
 public enum BrowserType
 {
     Chrome,
-    Firefox
+    Firefox,
+    Safari,
+    Edge
 }
