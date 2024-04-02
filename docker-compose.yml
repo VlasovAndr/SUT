@@ -42,7 +42,7 @@ services:
 
   ea_test:
     image: ea_test
-    container_name: eatest
+    container_name: ea_test
     build:
       context: .
       dockerfile: TestProjectBDD/Dockerfile
