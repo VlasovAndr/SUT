@@ -17,4 +17,5 @@ dotnet test --logger "console;verbosity=detailed"
 dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI
 export PATH="$PATH:/root/.dotnet/tools"
 echo "Starting Specflow living doc report generation"
-livingdoc test-assembly "/src/TestProjectBDD/bin/Debug/net7.0/TestProjectBDD.dll" -t "/src/TestProjectBDD/bin/Debug/net7.0/TestExecution.json"
+livingdoc test-assembly "/src/TestProjectBDD/bin/Debug/net7.0/TestProjectBDD.dll"
+ls -l ./src/TestProjectBDD/bin/Debug/net7.0
