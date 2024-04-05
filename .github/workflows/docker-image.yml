@@ -18,9 +18,8 @@ jobs:
       run: |
         echo --Running Tests ---
         sh ./scripts/run.sh
-    
-    -name: Publish the report as artifact
-    - uses: actions/upload-artifact@v4
-    with:
-      name: SpecflowReport
-      path: ./reports
+    - name: Publish the report as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: SpecflowReport
+        path: ./reports
