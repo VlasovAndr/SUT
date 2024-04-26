@@ -7,10 +7,10 @@ namespace TestProject;
 
 public class ProductTests
 {
-    private readonly IHomePage homePage;
-    private readonly IProductPage productPage;
+    private readonly HomePage homePage;
+    private readonly ProductPage productPage;
 
-    public ProductTests(IHomePage homePage, IProductPage productPage)
+    public ProductTests(HomePage homePage, ProductPage productPage)
     {
         this.homePage = homePage;
         this.productPage = productPage;
@@ -20,7 +20,8 @@ public class ProductTests
     public void CreateProductTest(Product product)
     {
         homePage.CreateProduct();
-        productPage.EnterProductDetails(product);
+        productPage.FillProductFields(product);
+        productPage.ClickCreate();
         homePage.PerformClickOnSpecialValue(product.Name, "Details");
 
         var actualProduct = productPage.GetProductDetails();
