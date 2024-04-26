@@ -12,7 +12,7 @@ public class Startup
         services.UseWebDriverInitializer();
         services.AddScoped<IDriverFixture, DriverFixture>();
         services.AddScoped<IBrowserDriver, BrowserDriver>();
-        services.AddScoped<IHomePage, HomePage>();
-        services.AddScoped<IProductPage, ProductPage>();
+        services.AddScoped<HomePage>();
+        services.AddScoped<ProductPage>();
     }
 }

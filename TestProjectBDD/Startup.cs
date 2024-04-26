@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using ProductAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using ProductAPI.Repository;
+using WebApp.Producer;
 
 namespace TestProjectBDD;
 
@@ -23,7 +24,7 @@ public static class Startup
         var services = new ServiceCollection();
 
         string projectPath = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { @"bin\" }, StringSplitOptions.None)[0];
-        
+
         var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
         environmentName = environmentName ?? "local";
         IConfigurationRoot configuration = new ConfigurationBuilder()
@@ -39,8 +40,8 @@ public static class Startup
         services.AddSingleton(ReadConfig());
         services.AddScoped<IDriverFixture, DriverFixture>();
         services.AddScoped<IBrowserDriver, BrowserDriver>();
-        services.AddScoped<IHomePage, HomePage>();
-        services.AddScoped<IProductPage, ProductPage>();
+        services.AddScoped<HomePage>();
+        services.AddScoped<ProductPage>();
         return services;
     }
 
