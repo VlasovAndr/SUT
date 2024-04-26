@@ -10,45 +10,67 @@ namespace TestProjectBDD.StepDefinitions;
 public class ProductSteps
 {
     private readonly ScenarioContext scenarioContext;
-    private readonly IHomePage homePage;
-    private readonly IProductPage productPage;
+    private readonly HomePage homePage;
+    private readonly ProductPage productPage;
 
-    public ProductSteps(ScenarioContext scenarioContext, IHomePage homePage, IProductPage productPage)
+    public ProductSteps(ScenarioContext scenarioContext, HomePage homePage, ProductPage productPage)
     {
         this.scenarioContext = scenarioContext;
         this.homePage = homePage;
         this.productPage = productPage;
     }
 
-    [Given(@"I click the Product menu")]
-    public void GivenIClickTheProductMenu()
+    [Given(@"I create product with following details"), Scope(Tag = "UI")]
+    public void CreateProductWithFollowingDetails(Table table)
     {
-        homePage.ClickProduct();
+        OpenProductMenu();
+        ClickCreate();
+        CreateProductWithFollowingDetails(table);
+        ClickCreate();
+        productPage.ClosePage();
     }
 
-    [Given(@"I click the ""([^""]*)"" link")]
-    public void GivenIClickTheLink(string create)
+    [When(@"I open product menu")]
+    public void OpenProductMenu()
     {
-        homePage.ClickCreate();
+        homePage.OpenProductMenu();
     }
 
-    [Given(@"I create product with following details")]
-    public void GivenICreateProductWithFollowingDetails(Table table)
+    [When(@"I click create new product")]
+    public void ClickCreateProduct()
+    {
+        homePage.ClickCreateProduct();
+    }
+
+    [When(@"I fill product fields with following details")]
+    public void FillProductFieldsWithFollowingDetails(Table table)
     {
         var product = table.CreateInstance<Product>();
-        productPage.EnterProductDetails(product);
+        productPage.FillProductFields(product);
         scenarioContext.Set(product);
     }
 
+    [When(@"I click create button")]
+    public void ClickCreate()
+    {
+        productPage.ClickCreate();
+    }
+
+    [When(@"I click save button")]
+    public void ClickSaveButton()
+    {
+        productPage.ClickSave();
+    }
+
     [When(@"I click the (.*) link of the newly created product")]
-    public void WhenIClickTheDetailsLinkOfTheNewlyCreatedProduct(string operation)
+    public void ClickDetailsLinkNewlyCreatedProduct(string operation)
     {
         var product = scenarioContext.Get<Product>();
         homePage.PerformClickOnSpecialValue(product.Name, operation);
     }
 
     [Then(@"I see all the product details are created as expected")]
-    public void ThenISeeAllTheProductDetailsAreCreatedAsExpected()
+    public void ICanSeeAllProductDetailsAreCreatedAsExpected()
     {
         var product = scenarioContext.Get<Product>();
         var actualProduct = productPage.GetProductDetails();
@@ -58,11 +80,15 @@ public class ProductSteps
             .BeEquivalentTo(product, option => option.Excluding(x => x.Id));
     }
 
-    [When(@"I Edit the product details with following")]
-    public void WhenIEditTheProductDetailsWithFollowing(Table table)
+    [Then(@"I validate all the product details are created as expected")]
+    public void ValidateProductDetailsAreCreatedAsExpected()
     {
-        var product = table.CreateInstance<Product>();
-        productPage.EditProduct(product);
-        scenarioContext.Set(product);
+        var product = scenarioContext.Get<Product>();
+        ClickDetailsLinkNewlyCreatedProduct("Details");
+        var actualProduct = productPage.GetProductDetails();
+
+        actualProduct
+            .Should()
+            .BeEquivalentTo(product, option => option.Excluding(x => x.Id));
     }
 }

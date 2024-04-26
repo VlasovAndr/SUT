@@ -1,5 +1,6 @@
-namespace ProductAPI.Data;
 using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ProductAPI.Data;
 
 public class Product
 {
