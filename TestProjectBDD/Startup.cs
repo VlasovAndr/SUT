@@ -36,6 +36,7 @@ public static class Startup
         string connectionString = configuration.GetConnectionString("DefaultConnection");
         services.AddDbContext<ProductDbContext>(x => x.UseSqlServer(connectionString));
         services.AddTransient<IProductRepository, ProductRepository>();
+        services.AddTransient<IProductService, ProductService>();
 
         services.AddSingleton(ReadConfig());
         services.AddScoped<IDriverFixture, DriverFixture>();

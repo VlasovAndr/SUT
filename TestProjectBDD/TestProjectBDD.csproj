@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TestFramework\TestFramework.csproj" />
+    <ProjectReference Include="..\WebApp\WebApp.csproj" />
   </ItemGroup>
 
   <ItemGroup>
