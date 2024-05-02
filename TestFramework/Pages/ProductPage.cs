@@ -17,6 +17,7 @@ public class ProductPage : BasePage
     IWebElement ddlProductType => Driver.FindElement(By.Id("ProductType"));
     IWebElement btnCreate => Driver.FindElement(By.Id("Create"));
     IWebElement btnSave => Driver.FindElement(By.Id("Save"));
+    IWebElement btnDelete => Driver.FindElement(By.Id("Delete"));
 
     public void FillProductFields(Product product)
     {
@@ -54,5 +55,10 @@ public class ProductPage : BasePage
     public void ClickSave()
     {
         btnSave.Click();
+    }
+
+    public void ClickDelete()
+    {
+        btnDelete.Click();
     }
 }

@@ -32,10 +32,17 @@ public class HomePage : BasePage
     public void PerformClickOnSpecialValue(string itemName, string operation)
     {
         var columnIndex = GetColumnIndexByName("Name");
-
         Driver
         .FindElement(By.XPath($"//table/tbody/tr/td[{columnIndex}][contains(text(),'{itemName}')]/..//td[6]/a[text() = '{operation}']"))
         .Click();
+    }
+
+    public bool IsProductPresentedInTable(string name)
+    {
+        var columnIndex = GetColumnIndexByName("Name");
+        var element = Driver.FindElements(By.XPath($"//table/tbody/tr/td[{columnIndex}][contains(text(),'{name}')]"));
+
+        return element.Count == 1;
     }
 
     private int GetColumnIndexByName(string columnName)
