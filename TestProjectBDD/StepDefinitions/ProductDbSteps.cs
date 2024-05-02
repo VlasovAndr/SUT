@@ -5,7 +5,7 @@ using TechTalk.SpecFlow.Assist;
 
 namespace TestProjectBDD.StepDefinitions
 {
-    [Binding]
+    [Binding, Scope(Tag = "Database_Steps")]
     public class ProductDbSteps
     {
         private readonly ScenarioContext scenarioContext;
@@ -42,6 +42,17 @@ namespace TestProjectBDD.StepDefinitions
 
                 if (prod != null)
                     productRepository.DeleteProduct(product.Name);
+            }
+        }
+
+        [Given(@"I create product with following details")]
+        public void CreateProductWithFollowingDetails(Table table)
+        {
+            var products = table.CreateSet<Product>();
+
+            foreach (var product in products)
+            {
+                productRepository.AddProduct(product);
             }
         }
     }
