@@ -6,7 +6,7 @@ using TestFramework.Pages;
 
 namespace TestProjectBDD.StepDefinitions;
 
-[Binding]
+[Binding, Scope(Tag = "UI_Steps")]
 public class ProductSteps
 {
     private readonly ScenarioContext scenarioContext;
@@ -20,15 +20,54 @@ public class ProductSteps
         this.productPage = productPage;
     }
 
-    [Given(@"I create product with following details"), Scope(Tag = "UI")]
+    #region High level action
+
+    [Given(@"I create product with following details")]
+    [When(@"I create product with following details")]
     public void CreateProductWithFollowingDetails(Table table)
     {
         OpenProductMenu();
+        ClickCreateProduct();
+        FillProductFieldsWithFollowingDetails(table);
         ClickCreate();
-        CreateProductWithFollowingDetails(table);
-        ClickCreate();
-        productPage.ClosePage();
     }
+
+    [When(@"I edit newly created product with following details")]
+    public void EditProductWithFollowingDetails(Table table)
+    {
+        OpenProductMenu();
+        ClickLinkForNewlyCreatedProduct("Edit");
+        FillProductFieldsWithFollowingDetails(table);
+        ClickSaveButton();
+    }
+
+    [When(@"I delete newly created product")]
+    public void DeleteProductWithFollowingDetails()
+    {
+        OpenProductMenu();
+        ClickLinkForNewlyCreatedProduct("Delete");
+        ClickDelete();
+    }
+
+    [Given(@"I delete newly created product")]
+    public void DeleteProduct()
+    {
+        OpenProductMenu();
+        ClickLinkForNewlyCreatedProduct("Delete");
+        ClickDelete();
+    }
+
+    [Then(@"I validate all the product details are created as expected")]
+    public void ValidateProductDetailsAreCreatedAsExpected()
+    {
+        ClickLinkForNewlyCreatedProduct("Details");
+        ValidateAllProductDetailsAreCreatedAsExpected();
+    }
+
+
+    #endregion
+
+    #region Low level action
 
     [When(@"I open product menu")]
     public void OpenProductMenu()
@@ -56,6 +95,12 @@ public class ProductSteps
         productPage.ClickCreate();
     }
 
+    [When(@"I click delete button")]
+    public void ClickDelete()
+    {
+        productPage.ClickDelete();
+    }
+
     [When(@"I click save button")]
     public void ClickSaveButton()
     {
@@ -63,14 +108,14 @@ public class ProductSteps
     }
 
     [When(@"I click the (.*) link of the newly created product")]
-    public void ClickDetailsLinkNewlyCreatedProduct(string operation)
+    public void ClickLinkForNewlyCreatedProduct(string operation)
     {
         var product = scenarioContext.Get<Product>();
         homePage.PerformClickOnSpecialValue(product.Name, operation);
     }
 
     [Then(@"I see all the product details are created as expected")]
-    public void ICanSeeAllProductDetailsAreCreatedAsExpected()
+    public void ValidateAllProductDetailsAreCreatedAsExpected()
     {
         var product = scenarioContext.Get<Product>();
         var actualProduct = productPage.GetProductDetails();
@@ -80,15 +125,15 @@ public class ProductSteps
             .BeEquivalentTo(product, option => option.Excluding(x => x.Id));
     }
 
-    [Then(@"I validate all the product details are created as expected")]
-    public void ValidateProductDetailsAreCreatedAsExpected()
+    [Then(@"I validate product is removed from the table")]
+    public void ValidateProductIsRemovedFromTheTable()
     {
         var product = scenarioContext.Get<Product>();
-        ClickDetailsLinkNewlyCreatedProduct("Details");
-        var actualProduct = productPage.GetProductDetails();
+        var isProductPresented = homePage.IsProductPresentedInTable(product.Name);
 
-        actualProduct
-            .Should()
-            .BeEquivalentTo(product, option => option.Excluding(x => x.Id));
+        isProductPresented.Should().BeFalse();
     }
+
+    #endregion
+
 }
