@@ -1,9 +1,5 @@
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using ProductAPI.Data;
-using System;
 using TechTalk.SpecFlow;
 using TestProjectBDD.StepDefinitions;
-using WebApp.Producer;
 
 namespace TestProjectBDD.Hooks;
 
@@ -36,10 +32,12 @@ public class ProductWebHooks : BaseHooks
 
 
     #region Teardowns
+
     [AfterScenario("@Teardown.UI.DeleteCreatedProduct")]
     public void DeleteProduct()
     {
         productSteps.DeleteProduct();
     }
+
     #endregion
 }

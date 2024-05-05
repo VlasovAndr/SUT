@@ -1,7 +1,7 @@
 using AutoFixture.Xunit2;
 using FluentAssertions;
-using ProductAPI.Data;
 using TestFramework.Pages;
+using WebApp;
 
 namespace TestProject;
 

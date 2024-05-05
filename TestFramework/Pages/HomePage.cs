@@ -1,4 +1,3 @@
-using Azure;
 using OpenQA.Selenium;
 using TestFramework.Driver;
 

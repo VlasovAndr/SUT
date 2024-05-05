@@ -1,8 +1,8 @@
 using FluentAssertions;
-using ProductAPI.Data;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 using TestFramework.Pages;
+using WebApp;
 
 namespace TestProjectBDD.StepDefinitions;
 
@@ -42,14 +42,6 @@ public class ProductSteps
     }
 
     [When(@"I delete newly created product")]
-    public void DeleteProductWithFollowingDetails()
-    {
-        OpenProductMenu();
-        ClickLinkForNewlyCreatedProduct("Delete");
-        ClickDelete();
-    }
-
-    [Given(@"I delete newly created product")]
     public void DeleteProduct()
     {
         OpenProductMenu();
@@ -64,8 +56,8 @@ public class ProductSteps
         ValidateAllProductDetailsAreCreatedAsExpected();
     }
 
-
     #endregion
+
 
     #region Low level action
 

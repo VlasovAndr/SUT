@@ -1,7 +1,7 @@
 using OpenQA.Selenium;
-using ProductAPI.Data;
 using TestFramework.Driver;
 using TestFramework.Extensions;
+using WebApp;
 
 namespace TestFramework.Pages;
 

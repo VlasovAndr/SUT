@@ -1,7 +1,7 @@
-using ProductAPI.Data;
 using System;
 using System.Linq;
 using TechTalk.SpecFlow;
+using WebApp;
 using WebApp.Producer;
 
 namespace TestProjectBDD.Hooks;
@@ -26,15 +26,7 @@ public class ProductAPIHooks : BaseHooks
         var price = int.Parse(GetParameterFromTag("Price"));
         var productType = GetParameterFromTag("ProductType");
 
-        var productWebModel = new WebApp.Product
-        {
-            Name = productName,
-            Description = description,
-            Price = price,
-            ProductType = (WebApp.ProductType)Enum.Parse(typeof(ProductType), productType)
-        };
-
-        var productAPIModel = new Product
+        var productWebModel = new Product
         {
             Name = productName,
             Description = description,
@@ -42,9 +34,8 @@ public class ProductAPIHooks : BaseHooks
             ProductType = (ProductType)Enum.Parse(typeof(ProductType), productType)
         };
 
-        productService.CreateProduct(productWebModel);
+        productService.CreateProduct(productWebModel).GetAwaiter().GetResult();
         scenarioContext.Set(productWebModel);
-        scenarioContext.Set(productAPIModel);
     }
 
     #endregion
@@ -60,9 +51,8 @@ public class ProductAPIHooks : BaseHooks
 
         foreach (var product in products)
         {
-            productService.DeleteProduct(product.Id);
+            productService.DeleteProduct(product.Id).GetAwaiter().GetResult();
         }
-
     }
 
     #endregion
