@@ -7,13 +7,13 @@ using WebApp;
 namespace TestProjectBDD.StepDefinitions;
 
 [Binding, Scope(Tag = "UI_Steps")]
-public class ProductSteps
+public class ProductWebSteps
 {
     private readonly ScenarioContext scenarioContext;
     private readonly HomePage homePage;
     private readonly ProductPage productPage;
 
-    public ProductSteps(ScenarioContext scenarioContext, HomePage homePage, ProductPage productPage)
+    public ProductWebSteps(ScenarioContext scenarioContext, HomePage homePage, ProductPage productPage)
     {
         this.scenarioContext = scenarioContext;
         this.homePage = homePage;

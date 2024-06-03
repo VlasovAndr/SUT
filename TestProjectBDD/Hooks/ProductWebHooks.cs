@@ -6,9 +6,9 @@ namespace TestProjectBDD.Hooks;
 [Binding]
 public class ProductWebHooks : BaseHooks
 {
-    private readonly ProductSteps productSteps;
+    private readonly ProductWebSteps productSteps;
 
-    public ProductWebHooks(ScenarioContext scenarioContext, ProductSteps productSteps) : base(scenarioContext)
+    public ProductWebHooks(ScenarioContext scenarioContext, ProductWebSteps productSteps) : base(scenarioContext)
     {
         this.productSteps = productSteps;
     }
