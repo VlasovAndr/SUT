@@ -35,7 +35,7 @@ public class ProductAPISteps
     [When(@"I edit newly created product with following details")]
     public void EditProductWithFollowingDetails(Table table)
     {
-        var productForEdit = table.CreateSet<Product>().First();
+        var productForEdit = table.CreateInstance<Product>();
         var product = scenarioContext.Get<Product>();
         var item = productService.GetProducts().Result.First(x => x.Name == product.Name);
         productForEdit.Id = item.Id;
@@ -55,7 +55,6 @@ public class ProductAPISteps
     public void ValidateProductDetailsAreCreatedAsExpected()
     {
         var product = scenarioContext.Get<Product>();
-        var list = productService.GetProducts().Result;
         var actualProduct = productService.GetProducts().Result.First(x => x.Name == product.Name);
 
         actualProduct

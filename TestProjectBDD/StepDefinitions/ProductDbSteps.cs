@@ -1,59 +1,80 @@
-using ProductAPI.Data;
+using System.Linq;
+using FluentAssertions;
 using ProductAPI.Repository;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
+using TestFramework.Extensions;
+using WebApp;
 
-namespace TestProjectBDD.StepDefinitions
+namespace TestProjectBDD.StepDefinitions;
+
+[Binding, Scope(Tag = "Database_Steps")]
+public class ProductDbSteps
 {
-    [Binding, Scope(Tag = "Database_Steps")]
-    public class ProductDbSteps
+    private readonly ScenarioContext scenarioContext;
+    private readonly IProductRepository productRepository;
+
+    public ProductDbSteps(ScenarioContext scenarioContext, IProductRepository productRepository)
     {
-        private readonly ScenarioContext scenarioContext;
-        private readonly IProductRepository productRepository;
+        this.scenarioContext = scenarioContext;
+        this.productRepository = productRepository;
+    }
 
-        public ProductDbSteps(ScenarioContext scenarioContext, IProductRepository productRepository)
-        {
-            this.scenarioContext = scenarioContext;
-            this.productRepository = productRepository;
-        }
+    [Given(@"I create product with following details")]
+    [When(@"I create product with following details")]
+    public void CreateProductWithFollowingDetails(Table table)
+    {
+        var products = table.CreateSet<Product>();
 
-        [Then(@"I delete the product (.*) for cleanup")]
-        public void ThenIDeleteTheProductHeadphonesForCleanup(string productName)
+        foreach (var product in products)
         {
-            productRepository.DeleteProduct(productName);
-        }
-
-        [Given(@"I ensure the following product is created")]
-        public void GivenIEnsureTheFollowingProjectIsCreated(Table table)
-        {
-            var product = table.CreateInstance<Product>();
-            productRepository.AddProduct(product);
+            productRepository.AddProduct(product.Cast<ProductAPI.Data.Product>());
             scenarioContext.Set(product);
         }
-
-        [Given(@"I cleanup following data")]
-        public void GivenICleanupFollowingData(Table table)
-        {
-            var products = table.CreateSet<Product>();
-
-            foreach (var product in products)
-            {
-                var prod = productRepository.GetProductByName(product.Name);
-
-                if (prod != null)
-                    productRepository.DeleteProduct(product.Name);
-            }
-        }
-
-        [Given(@"I create product with following details")]
-        public void CreateProductWithFollowingDetails(Table table)
-        {
-            var products = table.CreateSet<Product>();
-
-            foreach (var product in products)
-            {
-                productRepository.AddProduct(product);
-            }
-        }
     }
+
+    [When(@"I edit newly created product with following details")]
+    public void EditProductWithFollowingDetails(Table table)
+    {
+        var editProduct = table.CreateInstance<Product>();
+        var product = scenarioContext.Get<Product>();
+        var productFromDb = productRepository.GetProductByName(product.Name);
+
+        productFromDb.Name = editProduct.Name;
+        productFromDb.Price = editProduct.Price;
+        productFromDb.Description = editProduct.Description;
+        productFromDb.ProductType = (ProductAPI.Data.ProductType)editProduct.ProductType;
+
+        productRepository.UpdateProduct(productFromDb);
+        scenarioContext.Set(productFromDb.Cast<Product>);   
+    }
+
+    [When(@"I delete newly created product")]
+    public void DeleteNewlyCreatedProduct()
+    {
+        var product = scenarioContext.Get<Product>();
+        productRepository.DeleteProduct(product.Name);
+    }
+
+    [Then(@"I validate all the product details are created as expected")]
+    public void ValidateProductDetailsAreCreatedAsExpected()
+    {
+        var product = scenarioContext.Get<Product>();
+        var actualProduct = productRepository.GetProductByName(product.Name);
+
+        actualProduct
+            .Should()
+            .BeEquivalentTo(product, option => option.Excluding(x => x.Id));
+    }
+
+    [Then(@"I validate product is removed from the table")]
+    public void ThenIValidateProductIsRemovedFromTheTable()
+    {
+        var product = scenarioContext.Get<Product>();
+        var actualProduct = productRepository.GetProductByName(product.Name);
+
+        actualProduct
+            .Should().BeNull();
+    }
+
 }
