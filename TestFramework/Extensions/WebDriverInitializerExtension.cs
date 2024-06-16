@@ -8,7 +8,7 @@ namespace TestFramework.Extensions;
 
 public static class WebDriverInitializerExtension
 {
-    public static IServiceCollection UseWebDriverInitializer(
+    public static IServiceCollection AddTestSettings(
         this IServiceCollection services)
     {
         services.AddSingleton(ReadConfig());
@@ -20,6 +20,7 @@ public static class WebDriverInitializerExtension
     {
 
         var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        environmentName = environmentName == null ? "local" : environmentName;
 
         var configFile = File
                         .ReadAllText(Path.GetDirectoryName(
