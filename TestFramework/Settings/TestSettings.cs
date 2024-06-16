@@ -1,10 +1,8 @@
-using TestFramework.Driver;
-
 namespace TestFramework.Settings;
 
 public class TestSettings
 {
-    public BrowserType BrowserType { get; set; }
+    public BrowserName BrowserName { get; set; }
     public Uri ApplicationUrl { get; set; }
     public int TimeoutInterval { get; set; }
     public Uri SeleniumGridUrl { get; set; }

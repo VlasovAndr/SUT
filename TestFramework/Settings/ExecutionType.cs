@@ -1,8 +1,7 @@
-namespace TestFramework.Settings
+namespace TestFramework.Settings;
+
+public enum ExecutionType
 {
-    public enum ExecutionType
-    {
-        Local,
-        Remote
-    }
+    Local,
+    Remote
 }

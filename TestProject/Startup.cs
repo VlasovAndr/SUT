@@ -9,9 +9,11 @@ public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
     {
-        services.UseWebDriverInitializer();
+        services.AddTestSettings();
         services.AddScoped<IDriverFixture, DriverFixture>();
-        services.AddScoped<IBrowserDriver, BrowserDriver>();
+        services.AddScoped<IBrowserFactory, FirefoxDriverFactory>();
+        services.AddScoped<IBrowserFactory, ChromeDriverFactory>();
+        services.AddScoped<IBrowserFactory, RemoteChromeDriverFactory>();
         services.AddScoped<HomePage>();
         services.AddScoped<ProductPage>();
     }

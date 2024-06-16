@@ -1,11 +1,6 @@
 using TestFramework.Driver;
 using TestFramework.Pages;
-using System.IO;
-using System.Reflection;
-using System.Text.Json.Serialization;
-using System.Text.Json;
 using System;
-using TestFramework.Settings;
 using Microsoft.Extensions.DependencyInjection;
 using SolidToken.SpecFlow.DependencyInjection;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +8,7 @@ using ProductAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using ProductAPI.Repository;
 using WebApp.Producer;
+using TestFramework.Extensions;
 
 namespace TestProjectBDD;
 
@@ -23,6 +19,30 @@ public static class Startup
     {
         var services = new ServiceCollection();
 
+        services.AddDbContext<ProductDbContext>(options =>
+        {
+            options.UseSqlServer(GetConnectionStringForDb());
+            options.EnableDetailedErrors();
+            options.EnableSensitiveDataLogging();
+
+        });
+        services.AddTransient<IProductRepository, ProductRepository>();
+        services.AddTransient<IProductService, ProductService>();
+       
+        services.AddTestSettings();
+        services.AddScoped<IDriverFixture, DriverFixture>();
+        services.AddScoped<IBrowserFactory, FirefoxDriverFactory>();
+        services.AddScoped<IBrowserFactory, ChromeDriverFactory>();
+        services.AddScoped<IBrowserFactory, RemoteChromeDriverFactory>();
+        
+        services.AddScoped<HomePage>();
+        services.AddScoped<ProductPage>();
+
+        return services;
+    }
+
+    private static string GetConnectionStringForDb()
+    {
         string projectPath = AppDomain.CurrentDomain.BaseDirectory.Split(new string[] { @"bin\" }, StringSplitOptions.None)[0];
 
         var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -34,37 +54,8 @@ public static class Startup
                 .Build();
 
         string connectionString = configuration.GetConnectionString("DefaultConnection");
-        services.AddDbContext<ProductDbContext>(x => x.UseSqlServer(connectionString));
-        services.AddTransient<IProductRepository, ProductRepository>();
-        services.AddTransient<IProductService, ProductService>();
 
-        services.AddSingleton(ReadConfig());
-        services.AddScoped<IDriverFixture, DriverFixture>();
-        services.AddScoped<IBrowserDriver, BrowserDriver>();
-        services.AddScoped<HomePage>();
-        services.AddScoped<ProductPage>();
-        return services;
+        return connectionString;
     }
 
-    private static TestSettings ReadConfig()
-    {
-        var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-        environmentName = environmentName == null ? "local" : environmentName;
-
-        var configFile = File
-                        .ReadAllText(Path.GetDirectoryName(
-                            Assembly.GetExecutingAssembly().Location)
-                        + $"/appsettings.{environmentName}.json");
-
-        var jsonSerializeOptions = new JsonSerializerOptions()
-        {
-            PropertyNameCaseInsensitive = true
-        };
-
-        jsonSerializeOptions.Converters.Add(new JsonStringEnumConverter());
-
-        var testSettings = JsonSerializer.Deserialize<TestSettings>(configFile, jsonSerializeOptions);
-
-        return testSettings;
-    }
 }
