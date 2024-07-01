@@ -29,7 +29,7 @@ public static class WebElemetExtension
         select.SelectByIndex(index);
     }
 
-    public static string GetSelectedDropDownValue(this IWebElement el, int index)
+    public static string GetSelectedDropDownValue(this IWebElement el)
     {
         var select = new SelectElement(el);
         return select.SelectedOption.Text;
