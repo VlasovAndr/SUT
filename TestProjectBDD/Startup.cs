@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using ProductAPI.Repository;
 using WebApp.Producer;
 using TestFramework.Extensions;
+using TestFramework.Pages.Locators;
 
 namespace TestProjectBDD;
 
@@ -37,6 +38,8 @@ public static class Startup
         
         services.AddScoped<HomePage>();
         services.AddScoped<ProductPage>();
+        services.AddSingleton<HomePageLocators>();
+        services.AddSingleton<ProductPageLocators>();
 
         return services;
     }

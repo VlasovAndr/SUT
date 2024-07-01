@@ -10,6 +10,8 @@ public class DriverFixture : IDriverFixture, IDisposable
     private readonly TestSettings testSettings;
     private readonly IServiceProvider serviceProvider;
 
+    public IWebDriver Driver => driver;
+
     public DriverFixture(TestSettings testSettings, IServiceProvider serviceProvider)
     {
         this.testSettings = testSettings;
@@ -17,8 +19,6 @@ public class DriverFixture : IDriverFixture, IDisposable
         driver = CreateWebDriver();
         driver.Navigate().GoToUrl(testSettings.ApplicationUrl);
     }
-
-    public IWebDriver Driver => driver;
 
     private IWebDriver CreateWebDriver()
     {

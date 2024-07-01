@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using TestFramework.Driver;
 using TestFramework.Pages;
 using TestFramework.Extensions;
+using TestFramework.Pages.Locators;
 
 namespace TestProject;
 
@@ -16,5 +17,7 @@ public class Startup
         services.AddScoped<IBrowserFactory, RemoteChromeDriverFactory>();
         services.AddScoped<HomePage>();
         services.AddScoped<ProductPage>();
+        services.AddSingleton<HomePageLocators>();
+        services.AddSingleton<ProductPageLocators>();
     }
 }
