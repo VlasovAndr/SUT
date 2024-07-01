@@ -1,64 +1,51 @@
-using OpenQA.Selenium;
 using TestFramework.Driver;
 using TestFramework.Extensions;
+using TestFramework.Pages.Locators;
 using WebApp;
 
 namespace TestFramework.Pages;
 
 public class ProductPage : BasePage
 {
-    public ProductPage(IDriverFixture DriverFixture) : base(DriverFixture)
-    {
-    }
+    private readonly ProductPageLocators locators;
 
-    IWebElement txtName => Driver.FindElement(By.Id("Name"));
-    IWebElement txtDescription => Driver.FindElement(By.Id("Description"));
-    IWebElement txtPrice => Driver.FindElement(By.Id("Price"));
-    IWebElement ddlProductType => Driver.FindElement(By.Id("ProductType"));
-    IWebElement btnCreate => Driver.FindElement(By.Id("Create"));
-    IWebElement btnSave => Driver.FindElement(By.Id("Save"));
-    IWebElement btnDelete => Driver.FindElement(By.Id("Delete"));
+    public ProductPage(IDriverFixture DriverFixture, ProductPageLocators locators) : base(DriverFixture)
+    {
+        this.locators = locators;
+    }
 
     public void FillProductFields(Product product)
     {
-        txtName.ClearAndEnterText(product.Name);
-        txtDescription.ClearAndEnterText(product.Description);
-        txtPrice.ClearAndEnterText(product.Price.ToString());
-        ddlProductType.SelectFromDropDownByText(product.ProductType.ToString());
+        Driver.FindElement(locators.ProductName).ClearAndEnterText(product.Name);
+        Driver.FindElement(locators.ProductDescription).ClearAndEnterText(product.Description);
+        Driver.FindElement(locators.ProductPrice).ClearAndEnterText(product.Price.ToString());
+        Driver.FindElement(locators.ProductType).SelectFromDropDownByText(product.ProductType.ToString());
     }
 
     public void ClickCreate()
     {
-        btnCreate.Click();
+        Driver.FindElement(locators.CreateBtn).Click();
     }
 
     public Product GetProductDetails()
     {
         return new Product()
         {
-            Name = txtName.Text,
-            Description = txtDescription.Text,
-            Price = int.Parse(txtPrice.Text),
+            Name = Driver.FindElement(locators.ProductName).Text,
+            Description = Driver.FindElement(locators.ProductDescription).Text,
+            Price = int.Parse(Driver.FindElement(locators.ProductPrice).Text),
             ProductType = (ProductType)Enum.Parse(typeof(ProductType),
-                          ddlProductType.GetAttribute("innerText").ToString())
+                            Driver.FindElement(locators.ProductType).GetAttribute("innerText").ToString())
         };
-    }
-
-    public void EditProduct(Product product)
-    {
-        txtName.ClearAndEnterText(product.Name);
-        txtDescription.ClearAndEnterText(product.Description);
-        txtPrice.ClearAndEnterText(product.Price.ToString());
-        ddlProductType.SelectFromDropDownByText(product.ProductType.ToString());
     }
 
     public void ClickSave()
     {
-        btnSave.Click();
+        Driver.FindElement(locators.SaveBtn).Click();
     }
 
     public void ClickDelete()
     {
-        btnDelete.Click();
+        Driver.FindElement(locators.DeleteBtn).Click();
     }
 }

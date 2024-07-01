@@ -1,58 +1,58 @@
-using OpenQA.Selenium;
 using TestFramework.Driver;
+using TestFramework.Pages.Locators;
 
 namespace TestFramework.Pages;
 
 public class HomePage : BasePage
 {
-    public HomePage(IDriverFixture driverFixture) : base(driverFixture)
-    {
-    }
+    private readonly HomePageLocators locators;
 
-    IWebElement lnkProduct => Driver.FindElement(By.LinkText("Product"));
-    IWebElement lnkCreate => Driver.FindElement(By.LinkText("Create New"));
+    public HomePage(IDriverFixture driverFixture, HomePageLocators locators) : base(driverFixture)
+    {
+        this.locators = locators;
+    }
 
     public void CreateProduct()
     {
-        lnkProduct.Click();
-        lnkCreate.Click();
+        Driver.FindElement(locators.ProductLink).Click();
+        Driver.FindElement(locators.CreateProductLink).Click();
     }
 
     public void OpenProductMenu()
     {
-        lnkProduct.Click();
+        Driver.FindElement(locators.ProductLink).Click();
     }
 
     public void ClickCreateProduct()
     {
-        lnkCreate.Click();
+        Driver.FindElement(locators.CreateProductLink).Click();
     }
 
     public void PerformClickOnSpecialValue(string itemName, string operation)
     {
         var columnIndex = GetColumnIndexByName("Name");
         Driver
-        .FindElement(By.XPath($"//table/tbody/tr/td[{columnIndex}][contains(text(),'{itemName}')]/..//td[6]/a[text() = '{operation}']"))
+        .FindElement(locators.ProductOperaton(itemName, columnIndex, operation))
         .Click();
     }
 
     public bool IsProductPresentedInTable(string name)
     {
         var columnIndex = GetColumnIndexByName("Name");
-        var element = Driver.FindElements(By.XPath($"//table/tbody/tr/td[{columnIndex}][contains(text(),'{name}')]"));
+        var element = Driver.FindElements(locators.ProductInTable(name, columnIndex));
 
         return element.Count == 1;
     }
 
     private int GetColumnIndexByName(string columnName)
     {
-        var columns = Driver.FindElements(By.XPath("//table/thead//th")).ToList();
+        var columns = Driver.FindElements(locators.ColumnsInProductTable).ToList();
         return columns.FindIndex(x => x.Text == columnName) + 1;
     }
 
     private int GetRowIndexByColumnNameAndValue(int columnIndex, string value)
     {
-        var cellValues = Driver.FindElements(By.XPath($"//table/tbody/tr/td[{columnIndex}]")).ToList();
+        var cellValues = Driver.FindElements(locators.CellValuesInProductTable(columnIndex)).ToList();
         return cellValues.FindIndex(x => x.Text == value) + 1;
     }
 }
