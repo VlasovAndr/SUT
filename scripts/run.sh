@@ -17,6 +17,8 @@ docker-compose -p "$project" up --no-deps ea_test
 
 docker cp ea_test:/src/TestProjectBDD/bin/Debug/net7.0/LivingDoc.html ./reports
 echo "Specflow LivingDoc report is copied to ./reports"
+docker cp ea_test:/src/TestProjectBDD/bin/Debug/net7.0/allure-results ./reports
+echo "Allure results is copied to ./reports"
 ls -l ./reports
 
 exit_code=$(docker inspect ea_test --format='{{.State.ExitCode}}')
