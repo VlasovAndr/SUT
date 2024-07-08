@@ -25,6 +25,9 @@ jobs:
     - name: Check files in root directory
       run: ls
 
+    - name: Check files in AutomationTests directory
+      run: ls .\AutomationTests\
+
     - name: Publish the reports folder as artifact
       uses: actions/upload-artifact@v4
       with:
