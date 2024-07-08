@@ -14,6 +14,6 @@ WORKDIR "/src/AutomationTests/TestProjectBDD"
 RUN dotnet build "TestProjectBDD.csproj" -c Release -o /app/build
 
 FROM build AS TestProjectBDD
-WORKDIR /src/TestProjectBDD
+WORKDIR /src/AutomationTests/TestProjectBDD
 RUN  ["chmod", "+x", "..AutomationTests/scripts/WaitAndRun.sh"]
 ENTRYPOINT [ "..AutomationTests/scripts/WaitAndRun.sh" ]
