@@ -5,7 +5,7 @@ services:
     container_name: eaapi
     build:
       context: .
-      dockerfile: ProductAPI/Dockerfile
+      dockerfile: App/ProductAPI/Dockerfile
     restart: on-failure
     ports:
       - 5000:8001
@@ -19,7 +19,7 @@ services:
     container_name: eawebapp
     build:
       context: .
-      dockerfile: WebApp/Dockerfile
+      dockerfile: App/WebApp/Dockerfile
     restart: on-failure
     ports:
       - 5001:8000
@@ -45,7 +45,7 @@ services:
     container_name: ea_test
     build:
       context: .
-      dockerfile: TestProjectBDD/Dockerfile
+      dockerfile: AutomationTests/TestProjectBDD/Dockerfile
     restart: on-failure
     depends_on:
       - ea_api

@@ -17,15 +17,40 @@ jobs:
     - name: Running the script file
       run: |
         echo --Running Tests ---
-        sh ./scripts/run.sh
-    - name: Publish the report as artifact
+        sh ./AutomationTests/scripts/run.sh
+    
+    - name: Publish the reports folder as artifact
       uses: actions/upload-artifact@v4
       with:
-        name: SpecflowReport
-        path: ./reports
+        name: PublishReports
+        path: ./AutomationTests/reports
 
     - name: Publishing LivingDoc report to Github Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./reports
+        publish_dir: ./AutomationTests/reports
+
+    - name: Load Allure test report history
+      uses: actions/checkout@v3
+      if: always()
+      continue-on-error: true
+      with:
+        ref: gh-pages
+        path: gh-pages
+
+    - name: Build Allure test report
+      uses: simple-elf/allure-report-action@v1.7
+      if: always()
+      with:
+        gh_pages: gh-pages
+        allure_history: allure-history
+        allure_results: ./AutomationTests/reports/allure-results
+
+    - name: Publishing Allure report to Github Pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: always()
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_branch: gh-pages
+        publish_dir: allure-history
