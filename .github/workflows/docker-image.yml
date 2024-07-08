@@ -19,6 +19,12 @@ jobs:
         echo --Running Tests ---
         sh ./AutomationTests/scripts/run.sh
     
+    - name: Check if reports folder exists
+      run: if [ -d "./reports" ]; then echo "Reports folder exists"; else echo "Reports folder does not exist"; fi
+
+    - name: Check files in root directory
+      run: ls
+
     - name: Publish the reports folder as artifact
       uses: actions/upload-artifact@v4
       with:
