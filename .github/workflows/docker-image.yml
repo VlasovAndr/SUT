@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Running the script file
       run: |
         echo --Running Tests ---
@@ -25,14 +25,8 @@ jobs:
         name: PublishReports
         path: ./AutomationTests/reports
 
-    - name: Publishing LivingDoc report to Github Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./AutomationTests/reports
-
     - name: Load Allure test report history
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       if: always()
       continue-on-error: true
       with:
@@ -48,7 +42,7 @@ jobs:
         allure_results: ./AutomationTests/reports/allure-results
 
     - name: Publishing Allure report to Github Pages
-      uses: peaceiris/actions-gh-pages@v3
+      uses: peaceiris/actions-gh-pages@v4
       if: always()
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
