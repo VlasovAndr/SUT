@@ -1,0 +1,138 @@
+{
+  "uuid": "a6db1386151d4cc9a3c2eedb70ca51a8",
+  "historyId": "Create product and verify the details",
+  "fullName": "Create product and verify the details",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "a4f5e7dc5b63"
+    },
+    {
+      "name": "feature",
+      "value": "Product"
+    },
+    {
+      "name": "tag",
+      "value": "UI_Steps"
+    },
+    {
+      "name": "tag",
+      "value": "Teardown.API.DeleteCreatedProduct"
+    }
+  ],
+  "links": [],
+  "name": "Create product and verify the details",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "When  I open product menu",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1720468615759,
+      "stop": 1720468618045
+    },
+    {
+      "name": "And  I click create new product",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1720468618045,
+      "stop": 1720468618246
+    },
+    {
+      "name": "And  I fill product fields with following details",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "table",
+          "source": "caae0e5110374ebca2988a7cb8462545-attachment.csv",
+          "type": "text/csv"
+        }
+      ],
+      "parameters": [],
+      "start": 1720468618246,
+      "stop": 1720468619021
+    },
+    {
+      "name": "And  I click create button",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1720468619021,
+      "stop": 1720468619232
+    },
+    {
+      "name": "And  I click the Details link of the newly created product",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1720468619232,
+      "stop": 1720468619388
+    },
+    {
+      "name": "Then  I see all the product details are created as expected",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1720468619389,
+      "stop": 1720468619541
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1720468615753,
+  "stop": 1720468619541
+}

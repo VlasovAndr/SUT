@@ -1,0 +1,98 @@
+{
+  "uuid": "c67f51ef7bde407e9195d8584ddd04bd",
+  "historyId": "Edit Product and verify if its updated (UI Scope)",
+  "fullName": "Edit Product and verify if its updated (UI Scope)",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "a4f5e7dc5b63"
+    },
+    {
+      "name": "feature",
+      "value": "ProductScopes"
+    },
+    {
+      "name": "tag",
+      "value": "UI_Steps"
+    },
+    {
+      "name": "tag",
+      "value": "Setup.UI.CreateProduct"
+    },
+    {
+      "name": "tag",
+      "value": "ProductName:Mouse_UIScope_Item"
+    },
+    {
+      "name": "tag",
+      "value": "Description:MouseDescription"
+    },
+    {
+      "name": "tag",
+      "value": "Price:400"
+    },
+    {
+      "name": "tag",
+      "value": "ProductType:MONITOR"
+    },
+    {
+      "name": "tag",
+      "value": "Teardown.UI.DeleteCreatedProduct"
+    }
+  ],
+  "links": [],
+  "name": "Edit Product and verify if its updated (UI Scope)",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "When  I edit newly created product with following details",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "table",
+          "source": "b6c689cc04664b4085697d70e54ad745-attachment.csv",
+          "type": "text/csv"
+        }
+      ],
+      "parameters": [],
+      "start": 1720468621160,
+      "stop": 1720468621888
+    },
+    {
+      "name": "Then  I validate all the product details are created as expected",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1720468621888,
+      "stop": 1720468622110
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1720468621159,
+  "stop": 1720468622111
+}
