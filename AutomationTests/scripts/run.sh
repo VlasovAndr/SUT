@@ -15,8 +15,6 @@ mkdir -m 777 reports
 docker-compose -p "$project" up -d ea_api ea_webapp db chrome firefox selenium-hub
 docker-compose -p "$project" up --no-deps ea_test
 
-docker cp ea_test:/src/AutomationTests/TestProjectBDD/bin/Debug/net7.0/LivingDoc.html ./reports
-echo "Specflow LivingDoc report is copied to ./reports"
 docker cp ea_test:/src/AutomationTests/TestProjectBDD/bin/Debug/net7.0/allure-results ./reports
 echo "Allure results is copied to ./reports"
 ls -l ./reports
