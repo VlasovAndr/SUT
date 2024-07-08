@@ -19,26 +19,17 @@ jobs:
         echo --Running Tests ---
         sh ./AutomationTests/scripts/run.sh
     
-    - name: Check if reports folder exists
-      run: if [ -d "./reports" ]; then echo "Reports folder exists"; else echo "Reports folder does not exist"; fi
-
-    - name: Check files in root directory
-      run: ls
-
-    - name: Check files in AutomationTests directory
-      run: ls ./AutomationTests/
-
     - name: Publish the reports folder as artifact
       uses: actions/upload-artifact@v4
       with:
         name: PublishReports
-        path: ./reports
+        path: ./AutomationTests/reports
 
     - name: Publishing LivingDoc report to Github Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./reports
+        publish_dir: ./AutomationTests/reports
 
     - name: Load Allure test report history
       uses: actions/checkout@v3
@@ -54,7 +45,7 @@ jobs:
       with:
         gh_pages: gh-pages
         allure_history: allure-history
-        allure_results: ./reports/allure-results
+        allure_results: ./AutomationTests/reports/allure-results
 
     - name: Publishing Allure report to Github Pages
       uses: peaceiris/actions-gh-pages@v3
