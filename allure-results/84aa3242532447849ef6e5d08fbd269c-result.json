@@ -1,0 +1,92 @@
+{
+  "uuid": "766d24b147fb4ea8ae8063dbd5bb481e",
+  "historyId": "Delete Product and verify it (Databse Scope)",
+  "fullName": "Delete Product and verify it (Databse Scope)",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "d6e43ae44d5e"
+    },
+    {
+      "name": "feature",
+      "value": "ProductScopes"
+    },
+    {
+      "name": "tag",
+      "value": "Database_Steps"
+    },
+    {
+      "name": "tag",
+      "value": "Setup.Db.CreateProduct"
+    },
+    {
+      "name": "tag",
+      "value": "ProductName:Monitor_DbScope_Item_Delete"
+    },
+    {
+      "name": "tag",
+      "value": "Description:MonitorDescription"
+    },
+    {
+      "name": "tag",
+      "value": "Price:400"
+    },
+    {
+      "name": "tag",
+      "value": "ProductType:MONITOR"
+    },
+    {
+      "name": "tag",
+      "value": "Teardown.Db.DeleteCreatedProduct"
+    }
+  ],
+  "links": [],
+  "name": "Delete Product and verify it (Databse Scope)",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "When  I delete newly created product",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1720469627670,
+      "stop": 1720469627680
+    },
+    {
+      "name": "Then  I validate product is removed from the table",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1720469627680,
+      "stop": 1720469627682
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1720469627670,
+  "stop": 1720469627682
+}

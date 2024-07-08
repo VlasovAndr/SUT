@@ -1,0 +1,98 @@
+{
+  "uuid": "23ee0cc78d7144f38448859aa0dd6db5",
+  "historyId": "Edit Product and verify if its updated (Databse Scope)",
+  "fullName": "Edit Product and verify if its updated (Databse Scope)",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "d6e43ae44d5e"
+    },
+    {
+      "name": "feature",
+      "value": "ProductScopes"
+    },
+    {
+      "name": "tag",
+      "value": "Database_Steps"
+    },
+    {
+      "name": "tag",
+      "value": "Setup.Db.CreateProduct"
+    },
+    {
+      "name": "tag",
+      "value": "ProductName:Mouse_DbScope_Item"
+    },
+    {
+      "name": "tag",
+      "value": "Description:MouseDescription"
+    },
+    {
+      "name": "tag",
+      "value": "Price:400"
+    },
+    {
+      "name": "tag",
+      "value": "ProductType:MONITOR"
+    },
+    {
+      "name": "tag",
+      "value": "Teardown.Db.DeleteCreatedProduct"
+    }
+  ],
+  "links": [],
+  "name": "Edit Product and verify if its updated (Databse Scope)",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "When  I edit newly created product with following details",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "table",
+          "source": "d5534c6bac714b61b2d7e9b084b8615a-attachment.csv",
+          "type": "text/csv"
+        }
+      ],
+      "parameters": [],
+      "start": 1720469626956,
+      "stop": 1720469626970
+    },
+    {
+      "name": "Then  I validate all the product details are created as expected",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1720469626970,
+      "stop": 1720469626973
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1720469626956,
+  "stop": 1720469626973
+}

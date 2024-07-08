@@ -1,0 +1,78 @@
+{
+  "uuid": "d156cdba1d734a5182d9d59c6f126884",
+  "historyId": "Create product and verify the details (API Scope)",
+  "fullName": "Create product and verify the details (API Scope)",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "d6e43ae44d5e"
+    },
+    {
+      "name": "feature",
+      "value": "ProductScopes"
+    },
+    {
+      "name": "tag",
+      "value": "API_Steps"
+    },
+    {
+      "name": "tag",
+      "value": "Teardown.API.DeleteCreatedProduct"
+    }
+  ],
+  "links": [],
+  "name": "Create product and verify the details (API Scope)",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "When  I create product with following details",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "table",
+          "source": "ec6850320651448fb46b723d9c39d048-attachment.csv",
+          "type": "text/csv"
+        }
+      ],
+      "parameters": [],
+      "start": 1720469632077,
+      "stop": 1720469632085
+    },
+    {
+      "name": "Then  I validate all the product details are created as expected",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1720469632086,
+      "stop": 1720469632088
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1720469632077,
+  "stop": 1720469632088
+}

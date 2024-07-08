@@ -1,0 +1,27 @@
+{
+  "uuid": "5f68cbc279524db1b9e9be3e06817442",
+  "children": [
+    "6ef22bfc4eef4f1e8da64c904ebd59e0"
+  ],
+  "befores": [],
+  "afters": [
+    {
+      "name": "DeleteProduct [10000]",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1720469634518,
+      "stop": 1720469634769
+    }
+  ],
+  "links": [],
+  "start": 1720469632093,
+  "stop": 1720469637412
+}

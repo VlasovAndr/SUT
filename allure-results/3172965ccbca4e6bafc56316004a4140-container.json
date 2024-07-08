@@ -1,0 +1,43 @@
+{
+  "uuid": "d706d77b9f9e4cf78cc21d8372d254a8",
+  "children": [
+    "596f615afe5448f1b843cd10df3c8ae9"
+  ],
+  "befores": [
+    {
+      "name": "CreateProduct [10000]",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1720469637394,
+      "stop": 1720469637398
+    }
+  ],
+  "afters": [
+    {
+      "name": "DeleteProduct [10000]",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1720469637407,
+      "stop": 1720469637408
+    }
+  ],
+  "links": [],
+  "start": 1720469637393,
+  "stop": 1720469637412
+}
