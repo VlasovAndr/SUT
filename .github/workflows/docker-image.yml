@@ -19,19 +19,19 @@ jobs:
         echo --Running Tests ---
         sh ./scripts/run.sh
     
-    #- name: Publish the report as artifact
-    #  uses: actions/upload-artifact@v4
-    #  with:
-    #    name: SpecflowReport
-    #    path: ./reports
+    - name: Publish the reports folder as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: PublishReports
+        path: ./reports
 
-    #- name: Publishing LivingDoc report to Github Pages
-    #  uses: peaceiris/actions-gh-pages@v3
-    #  with:
-    #    github_token: ${{ secrets.GITHUB_TOKEN }}
-    #    publish_dir: ./reports
+    - name: Publishing LivingDoc report to Github Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./reports
 
-    - name: Load test report history
+    - name: Load Allure test report history
       uses: actions/checkout@v3
       if: always()
       continue-on-error: true
@@ -39,7 +39,7 @@ jobs:
         ref: gh-pages
         path: gh-pages
 
-    - name: Build test report
+    - name: Build Allure test report
       uses: simple-elf/allure-report-action@v1.7
       if: always()
       with:
@@ -47,7 +47,7 @@ jobs:
         allure_history: allure-history
         allure_results: ./reports/allure-results
 
-    - name: Publish test report
+    - name: Publishing Allure report to Github Pages
       uses: peaceiris/actions-gh-pages@v3
       if: always()
       with:
