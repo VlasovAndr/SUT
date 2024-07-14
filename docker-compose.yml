@@ -46,7 +46,6 @@ services:
     build:
       context: .
       dockerfile: AutomationTests/TestProjectBDD/Dockerfile
-    restart: on-failure
     depends_on:
       - ea_api
       - selenium-hub
