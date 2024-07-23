@@ -14,9 +14,3 @@ until [ ]; do
 done 
 
 dotnet test --logger "console;verbosity=detailed"
-dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI
-export PATH="$PATH:/root/.dotnet/tools"
-echo "Starting Specflow living doc report generation"
-cd /src/AutomationTests/TestProjectBDD/bin/Debug/net8.0/
-livingdoc test-assembly "/src/AutomationTests/TestProjectBDD/bin/Debug/net8.0/TestProjectBDD.dll"
-ls -l /src/AutomationTests/TestProjectBDD/bin/Debug/net8.0/
