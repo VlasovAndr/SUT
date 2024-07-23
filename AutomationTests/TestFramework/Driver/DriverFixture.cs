@@ -34,6 +34,21 @@ public class DriverFixture : IDriverFixture, IDisposable
         return factory.Create();
     }
 
+    public string GetBrowserLogs()
+    {
+        var browserLogs = driver.Manage().Logs.GetLog(LogType.Browser);
+        var browserLogsList = browserLogs.Select(x => x.ToString());
+        var logs = string.Join('\n', browserLogsList);
+        return logs;
+    }
+
+    public byte[] GetScreenshot()
+    {
+        ITakesScreenshot screen = driver as ITakesScreenshot;
+        var screenshot = screen.GetScreenshot();
+        return screenshot.AsByteArray;
+    }
+
     public void Dispose()
     {
         driver.Quit();
