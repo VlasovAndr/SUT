@@ -1,7 +1,7 @@
 using ProductAPI.Repository;
 using System;
 using System.Linq;
-using TechTalk.SpecFlow;
+using Reqnroll;
 using TestFramework.Extensions;
 using WebApp;
 
