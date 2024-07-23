@@ -1,0 +1,102 @@
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create - SUT</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/site.css?v=r22M7xOahcMheWCkoVof2Nt7pQmj7mMSFKTei-SfmQ0">
+    <link rel="stylesheet" href="/SUT.styles.css">
+</head>
+<body>
+    <header b-wrkb45jn1q="">
+        <nav b-wrkb45jn1q="" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div b-wrkb45jn1q="" class="container-fluid">
+                <a class="navbar-brand" href="/">SUT</a>
+                <button b-wrkb45jn1q="" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span b-wrkb45jn1q="" class="navbar-toggler-icon"></span>
+                </button>
+                <div b-wrkb45jn1q="" class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul b-wrkb45jn1q="" class="navbar-nav flex-grow-1">
+                        <li b-wrkb45jn1q="" class="nav-item">
+                            <a class="nav-link text-dark" href="/">Home</a>
+                        </li>
+                        <li b-wrkb45jn1q="" class="nav-item">
+                            <a class="nav-link text-dark" href="/Home/Privacy">Privacy</a>
+                        </li>
+                        <li b-wrkb45jn1q="" class="nav-item">
+                            <a class="nav-link text-dark" href="/Product/List">Product</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div b-wrkb45jn1q="" class="container">
+        <main b-wrkb45jn1q="" role="main" class="pb-3">
+            
+
+<h1>Create</h1>
+
+<h4>Product</h4>
+<hr>
+<div class="row">
+    <div class="col-md-4">
+        <form action="/Product/Create" method="post" novalidate="novalidate">
+            
+            <div class="form-group">
+                <label class="control-label" for="Name">Name</label>
+                <input class="form-control valid" type="text" id="Name" name="Name" value="" aria-invalid="false">
+                <span class="text-danger field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Description">Description</label>
+                <input class="form-control valid" type="text" id="Description" name="Description" value="" aria-invalid="false">
+                <span class="text-danger field-validation-valid" data-valmsg-for="Description" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Price">Price</label>
+                <input class="form-control valid" type="number" data-val="true" data-val-required="The Price field is required." id="Price" name="Price" value="" aria-describedby="Price-error" aria-invalid="false"><input name="__Invariant" type="hidden" value="Price">
+                <span class="text-danger field-validation-valid" data-valmsg-for="Price" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="ProductType">ProductType</label>
+                <div class="col-md-10">
+                    <select ,="" class="form-control" data-val="true" data-val-required="The ProductType field is required." id="ProductType" name="ProductType">
+                        <option>Select type ...</option>
+                    <option value="0">CPU</option>
+<option value="1">MONITOR</option>
+<option value="2">PERIPHARALS</option>
+<option value="3">EXTERNAL</option>
+</select>
+                </div>
+                <span class="text-danger field-validation-valid" data-valmsg-for="ProductType" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" id="Create" class="btn btn-primary">
+            </div>
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8G3OQz65FEtGnPuuQuW4r6CWkBUPwNFLLYjjMMDQyrVT0hSfiJXy3s4PFIGqYxGtWwnmZSPWmjbaZpJqtWEcxsiWsArQLrctTvj-GctyoreGnIymjO5r10_ylbwdQUgsO7rgVVfR070MGVBKtchGCRY"></form>
+    </div>
+</div>
+
+<div>
+    <a href="/Product/List">Back to List</a>
+</div>
+
+
+        </main>
+    </div>
+
+    <footer b-wrkb45jn1q="" class="border-top footer text-muted">
+        <div b-wrkb45jn1q="" class="container">
+            ? 2024 - SUT - <a href="/Home/Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/site.js?v=BxFAw9RUJ1E4NycpKEjCNDeoSvr4RPHixdBq5wDnkeY"></script>
+    
+<script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+</body></html>
