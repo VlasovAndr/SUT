@@ -9,6 +9,7 @@ Scenario: Create product and verify the details
 	And I fill product fields with following details
 		| Name             | Description          | Price | ProductType |
 		| Keyboard_UI_Item | Keyboard Description | 300   | PERIPHARALS |
+	And I click create button
 	And I click the Details link of the newly created product
 	Then I see all the product details are created as expected
 
