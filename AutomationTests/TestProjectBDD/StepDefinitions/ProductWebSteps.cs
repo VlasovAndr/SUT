@@ -1,6 +1,6 @@
 using FluentAssertions;
-using TechTalk.SpecFlow;
-using TechTalk.SpecFlow.Assist;
+using Reqnroll;
+using Reqnroll.Assist;
 using TestFramework.Pages;
 using WebApp;
 

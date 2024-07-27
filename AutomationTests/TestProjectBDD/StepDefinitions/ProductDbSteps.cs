@@ -1,8 +1,8 @@
 using System.Linq;
 using FluentAssertions;
 using ProductAPI.Repository;
-using TechTalk.SpecFlow;
-using TechTalk.SpecFlow.Assist;
+using Reqnroll;
+using Reqnroll.Assist;
 using TestFramework.Extensions;
 using WebApp;
 

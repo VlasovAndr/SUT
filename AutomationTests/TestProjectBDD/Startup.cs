@@ -2,7 +2,7 @@ using TestFramework.Driver;
 using TestFramework.Pages;
 using System;
 using Microsoft.Extensions.DependencyInjection;
-using SolidToken.SpecFlow.DependencyInjection;
+using Reqnroll.Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using ProductAPI.Data;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +29,7 @@ public static class Startup
         });
         services.AddTransient<IProductRepository, ProductRepository>();
         services.AddTransient<IProductService, ProductService>();
-       
+
         services.AddTestSettings();
         services.AddScoped<IDriverFixture, DriverFixture>();
         services.AddScoped<IBrowserFactory, FirefoxDriverFactory>();

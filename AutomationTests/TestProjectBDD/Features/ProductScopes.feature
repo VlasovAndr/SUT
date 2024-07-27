@@ -71,7 +71,7 @@ Scenario: Delete Product and verify it (API Scope)
 @Teardown.Db.DeleteCreatedProduct
 Scenario: Create product and verify the details (Databse Scope)
 	When I create product with following details
-		| Name                     | Description        | Price | ProductType |
+		| Name                    | Description        | Price | ProductType |
 		| Headphones_DbScope_Item | Noise cancellation | 300   | PERIPHARALS |
 	Then I validate all the product details are created as expected
 
