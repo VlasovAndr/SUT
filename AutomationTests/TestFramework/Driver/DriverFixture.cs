@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using OpenQA.Selenium;
+using TestFramework.Driver.WebDriverFactory;
 using TestFramework.Settings;
 
 namespace TestFramework.Driver;

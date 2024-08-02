@@ -3,6 +3,7 @@ using TestFramework.Driver;
 using TestFramework.Pages;
 using TestFramework.Extensions;
 using TestFramework.Pages.Locators;
+using TestFramework.Driver.WebDriverFactory;
 
 namespace TestProject;
 

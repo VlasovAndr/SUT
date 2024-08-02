@@ -1,3 +1,4 @@
+using Xunit;
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using TestFramework.Pages;
