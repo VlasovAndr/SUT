@@ -9,9 +9,9 @@ cd "$(dirname "${0}")/.."
 
 export COMPOSE_HTTP_TIMEOUT=200
 
-docker-compose --version
-which docker-compose
-sudo docker-compose --version
+docker compose --version
+which docker compose
+sudo docker compose --version
 
 docker-compose -p "$project" build
 
