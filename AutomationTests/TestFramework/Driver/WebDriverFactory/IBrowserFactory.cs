@@ -1,7 +1,7 @@
 using OpenQA.Selenium;
 using TestFramework.Settings;
 
-namespace TestFramework.Driver;
+namespace TestFramework.Driver.WebDriverFactory;
 
 public interface IBrowserFactory
 {

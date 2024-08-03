@@ -4,7 +4,7 @@ using OpenQA.Selenium.Remote;
 using System.Drawing;
 using TestFramework.Settings;
 
-namespace TestFramework.Driver;
+namespace TestFramework.Driver.WebDriverFactory;
 
 public class RemoteChromeDriverFactory : IBrowserFactory
 {

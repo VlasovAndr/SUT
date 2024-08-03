@@ -10,6 +10,7 @@ using ProductAPI.Repository;
 using WebApp.Producer;
 using TestFramework.Extensions;
 using TestFramework.Pages.Locators;
+using TestFramework.Driver.WebDriverFactory;
 
 namespace TestProjectBDD;
 

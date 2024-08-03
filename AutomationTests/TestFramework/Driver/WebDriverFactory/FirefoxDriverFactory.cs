@@ -3,7 +3,7 @@ using OpenQA.Selenium.Firefox;
 using System.Drawing;
 using TestFramework.Settings;
 
-namespace TestFramework.Driver;
+namespace TestFramework.Driver.WebDriverFactory;
 
 public class FirefoxDriverFactory : IBrowserFactory
 {
