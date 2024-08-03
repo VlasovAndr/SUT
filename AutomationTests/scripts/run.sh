@@ -10,14 +10,12 @@ cd "$(dirname "${0}")/.."
 export COMPOSE_HTTP_TIMEOUT=200
 
 docker compose --version
-which docker compose
-sudo docker compose --version
 
-docker-compose -p "$project" build
+docker compose -p "$project" build
 
 mkdir -m 777 reports
-docker-compose -p "$project" up -d ea_api ea_webapp db chrome firefox selenium-hub
-docker-compose -p "$project" up --no-deps ea_test
+docker compose -p "$project" up -d ea_api ea_webapp db chrome firefox selenium-hub
+docker compose -p "$project" up --no-deps ea_test
 
 docker cp ea_test:/src/AutomationTests/TestProjectBDD/bin/Debug/net8.0/allure-results ./reports
 echo "Allure results is copied to ./reports"
