@@ -3,24 +3,17 @@ using TestFramework.Pages.Locators;
 
 namespace TestFramework.Pages;
 
-public class HomePage : BasePage
+public class ProductListingPage : BasePage
 {
-    private readonly HomePageLocators locators;
+    private readonly ProductListingLocators locators;
+    private readonly Header header;
 
-    public HomePage(IDriverFixture driverFixture, HomePageLocators locators) : base(driverFixture)
+    public Header Header => header;
+
+    public ProductListingPage(IDriverFixture driverFixture, ProductListingLocators locators, Header header) : base(driverFixture)
     {
         this.locators = locators;
-    }
-
-    public void CreateProduct()
-    {
-        Driver.FindElement(locators.ProductLink).Click();
-        Driver.FindElement(locators.CreateProductLink).Click();
-    }
-
-    public void OpenProductMenu()
-    {
-        Driver.FindElement(locators.ProductLink).Click();
+        this.header = header;
     }
 
     public void ClickCreateProduct()
@@ -32,8 +25,8 @@ public class HomePage : BasePage
     {
         var columnIndex = GetColumnIndexByName("Name");
         Driver
-        .FindElement(locators.ProductOperaton(itemName, columnIndex, operation))
-        .Click();
+            .FindElement(locators.ProductOperatonForItem(itemName, columnIndex, operation))
+            .Click();
     }
 
     public bool IsProductPresentedInTable(string name)

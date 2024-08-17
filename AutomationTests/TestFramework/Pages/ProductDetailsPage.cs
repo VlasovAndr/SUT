@@ -5,11 +5,11 @@ using WebApp;
 
 namespace TestFramework.Pages;
 
-public class ProductPage : BasePage
+public class ProductDetailsPage : BasePage
 {
-    private readonly ProductPageLocators locators;
+    private readonly ProductDetailsLocators locators;
 
-    public ProductPage(IDriverFixture DriverFixture, ProductPageLocators locators) : base(DriverFixture)
+    public ProductDetailsPage(IDriverFixture DriverFixture, ProductDetailsLocators locators) : base(DriverFixture)
     {
         this.locators = locators;
     }

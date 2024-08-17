@@ -67,8 +67,8 @@ public class ProductDbSteps
             .BeEquivalentTo(product, option => option.Excluding(x => x.Id));
     }
 
-    [Then(@"I validate product is removed from the table")]
-    public void ThenIValidateProductIsRemovedFromTheTable()
+    [Then(@"I validate product is removed from the system")]
+    public void ValidateProductIsRemovedFromTheSystem()
     {
         var product = scenarioContext.Get<Product>();
         var actualProduct = productRepository.GetProductByName(product.Name);

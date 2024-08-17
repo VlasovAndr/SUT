@@ -37,10 +37,13 @@ public static class Startup
         services.AddScoped<IBrowserFactory, ChromeDriverFactory>();
         services.AddScoped<IBrowserFactory, RemoteChromeDriverFactory>();
         
-        services.AddScoped<HomePage>();
-        services.AddScoped<ProductPage>();
-        services.AddSingleton<HomePageLocators>();
-        services.AddSingleton<ProductPageLocators>();
+        services.AddScoped<Header>();
+        services.AddScoped<ProductListingPage>();
+        services.AddScoped<ProductDetailsPage>();
+
+        services.AddSingleton<HeaderLocators>();
+        services.AddSingleton<ProductListingLocators>();
+        services.AddSingleton<ProductDetailsLocators>();
 
         return services;
     }

@@ -10,14 +10,14 @@ namespace TestProjectBDD.StepDefinitions;
 public class ProductWebSteps
 {
     private readonly ScenarioContext scenarioContext;
-    private readonly HomePage homePage;
-    private readonly ProductPage productPage;
+    private readonly ProductListingPage productListing;
+    private readonly ProductDetailsPage productDetails;
 
-    public ProductWebSteps(ScenarioContext scenarioContext, HomePage homePage, ProductPage productPage)
+    public ProductWebSteps(ScenarioContext scenarioContext, ProductListingPage productListing, ProductDetailsPage productDetails)
     {
         this.scenarioContext = scenarioContext;
-        this.homePage = homePage;
-        this.productPage = productPage;
+        this.productListing = productListing;
+        this.productDetails = productDetails;
     }
 
     #region High level action
@@ -56,6 +56,12 @@ public class ProductWebSteps
         ValidateAllProductDetailsAreCreatedAsExpected();
     }
 
+    [Then(@"I validate product is removed from the system")]
+    public void ValidateProductIsRemovedFromTheSystem()
+    {
+        ValidateProductIsRemovedFromTheTable();
+    }
+
     #endregion
 
 
@@ -64,53 +70,53 @@ public class ProductWebSteps
     [When(@"I open product menu")]
     public void OpenProductMenu()
     {
-        homePage.OpenProductMenu();
+        productListing.Header.OpenProductMenu();
     }
 
     [When(@"I click create new product")]
     public void ClickCreateProduct()
     {
-        homePage.ClickCreateProduct();
+        productListing.ClickCreateProduct();
     }
 
     [When(@"I fill product fields with following details")]
     public void FillProductFieldsWithFollowingDetails(Table table)
     {
         var product = table.CreateInstance<Product>();
-        productPage.FillProductFields(product);
+        productDetails.FillProductFields(product);
         scenarioContext.Set(product);
     }
 
     [When(@"I click create button")]
     public void ClickCreate()
     {
-        productPage.ClickCreate();
+        productDetails.ClickCreate();
     }
 
     [When(@"I click delete button")]
     public void ClickDelete()
     {
-        productPage.ClickDelete();
+        productDetails.ClickDelete();
     }
 
     [When(@"I click save button")]
     public void ClickSaveButton()
     {
-        productPage.ClickSave();
+        productDetails.ClickSave();
     }
 
     [When(@"I click the (.*) link of the newly created product")]
     public void ClickLinkForNewlyCreatedProduct(string operation)
     {
         var product = scenarioContext.Get<Product>();
-        homePage.PerformClickOnSpecialValue(product.Name, operation);
+        productListing.PerformClickOnSpecialValue(product.Name, operation);
     }
 
     [Then(@"I see all the product details are created as expected")]
     public void ValidateAllProductDetailsAreCreatedAsExpected()
     {
         var product = scenarioContext.Get<Product>();
-        var actualProduct = productPage.GetProductDetails();
+        var actualProduct = productDetails.GetProductDetails();
 
         actualProduct
             .Should()
@@ -121,7 +127,7 @@ public class ProductWebSteps
     public void ValidateProductIsRemovedFromTheTable()
     {
         var product = scenarioContext.Get<Product>();
-        var isProductPresented = homePage.IsProductPresentedInTable(product.Name);
+        var isProductPresented = productListing.IsProductPresentedInTable(product.Name);
 
         isProductPresented.Should().BeFalse();
     }

@@ -8,24 +8,25 @@ namespace TestProject;
 
 public class ProductTests
 {
-    private readonly HomePage homePage;
-    private readonly ProductPage productPage;
+    private readonly ProductListingPage productListing;
+    private readonly ProductDetailsPage productDetails;
 
-    public ProductTests(HomePage homePage, ProductPage productPage)
+    public ProductTests(ProductListingPage productListing, ProductDetailsPage productDetails)
     {
-        this.homePage = homePage;
-        this.productPage = productPage;
+        this.productListing = productListing;
+        this.productDetails = productDetails;
     }
 
     [Theory, AutoData]
     public void CreateProductTest(Product product)
     {
-        homePage.CreateProduct();
-        productPage.FillProductFields(product);
-        productPage.ClickCreate();
-        homePage.PerformClickOnSpecialValue(product.Name, "Details");
+        productListing.Header.OpenProductMenu();
+        productListing.ClickCreateProduct();
+        productDetails.FillProductFields(product);
+        productDetails.ClickCreate();
+        productListing.PerformClickOnSpecialValue(product.Name, "Details");
 
-        var actualProduct = productPage.GetProductDetails();
+        var actualProduct = productDetails.GetProductDetails();
 
         actualProduct
             .Should()
