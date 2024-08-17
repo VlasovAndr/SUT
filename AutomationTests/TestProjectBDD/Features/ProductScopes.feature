@@ -31,7 +31,7 @@ Scenario: Edit Product and verify if its updated (UI Scope)
 @Teardown.API.DeleteCreatedProduct
 Scenario: Delete Product and verify it (UI Scope)
 	When I delete newly created product
-	Then I validate product is removed from the table
+	Then I validate product is removed from the system
 
 
 @API_Steps
@@ -64,7 +64,7 @@ Scenario: Edit Product and verify if its updated (API Scope)
 @Teardown.API.DeleteCreatedProduct
 Scenario: Delete Product and verify it (API Scope)
 	When I delete newly created product
-	Then I validate product is removed from the table
+	Then I validate product is removed from the system
 
 
 @Database_Steps
@@ -97,4 +97,4 @@ Scenario: Edit Product and verify if its updated (Databse Scope)
 @Teardown.Db.DeleteCreatedProduct
 Scenario: Delete Product and verify it (Databse Scope)
 	When I delete newly created product
-	Then I validate product is removed from the table
+	Then I validate product is removed from the system

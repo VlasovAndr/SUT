@@ -2,7 +2,7 @@
 
 namespace TestFramework.Pages.Locators;
 
-public class ProductPageLocators
+public class ProductDetailsLocators
 {
     public By ProductName => By.Id("Name");
     public By ProductDescription => By.Id("Description");
