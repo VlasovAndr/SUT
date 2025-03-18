@@ -5,11 +5,13 @@ namespace IntegrationTest.IntegrationTestApproaches;
 
 public class IntegrationTestBestPractice : IClassFixture<CustomWebApplicationFactory<Program>>
 {
-    private readonly CustomWebApplicationFactory<Program> webApplicationFactory;
+    private readonly HttpClient _client;
+    private readonly string _baseUrl;
 
     public IntegrationTestBestPractice(CustomWebApplicationFactory<Program> webApplicationFactory)
     {
-        this.webApplicationFactory = webApplicationFactory;
+        _client = webApplicationFactory.CreateClient();
+        _baseUrl = ServicePathHelper.GetProductAPIUrl();
     }
 
     /// <summary>
@@ -20,11 +22,10 @@ public class IntegrationTestBestPractice : IClassFixture<CustomWebApplicationFac
     [Fact]
     public async Task TestWithCustomWebAppFactoryAndGeneratedCode()
     {
-        var webClient = webApplicationFactory.CreateClient();
-        var product = new ProductAPI(ServicePathHelper.GetProductAPIUrl(), webClient);
+        var product = new ProductAPI(_baseUrl, _client);
 
         var results = await product.GetProductsAsync();
-        
+
         results.Should().HaveCount(5);
     }
 }
