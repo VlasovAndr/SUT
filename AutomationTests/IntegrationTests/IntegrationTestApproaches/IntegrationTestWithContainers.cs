@@ -25,11 +25,11 @@ public class IntegrationTestWithContainers : IClassFixture<CustomWebApplicationF
     [Fact]
     public async Task TestWithCustomWebAppFactoryAndGeneratedCode()
     {
-        var product = new ProductAPI(_baseUrl, _client);
+        var productClient = new ProductAPI(_baseUrl, _client);
 
-        var results = await product.GetProductsAsync();
+        var products = await productClient.GetProductsAsync();
 
-        results.Should().HaveCount(5);
+        products.Should().HaveCount(5);
     }
 
 }
