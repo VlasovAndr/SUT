@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using ProductAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Data.Sqlite;
+using System.Data.Common;
 
 namespace IntegrationTest;
 
@@ -14,34 +16,39 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
         builder.ConfigureServices(services =>
         {
             var dbContextDescriptor = services.SingleOrDefault(
-                d => d.ServiceType == typeof(DbContextOptions<ProductDbContext>));
+                d => d.ServiceType ==
+                    typeof(DbContextOptions<ProductDbContext>));
 
             if (dbContextDescriptor != null)
             {
                 services.Remove(dbContextDescriptor);
             }
 
-            services.AddDbContext<ProductDbContext>(options =>
+            var dbConnectionDescriptor = services.SingleOrDefault(
+                d => d.ServiceType ==
+                    typeof(DbConnection));
+
+            if (dbConnectionDescriptor != null)
             {
-                options.UseInMemoryDatabase("InMemoryProductAPI");
+                services.Remove(dbConnectionDescriptor);
+            }
+
+            // Create open SqliteConnection so EF won't automatically close it.
+            services.AddSingleton<DbConnection>(container =>
+            {
+                var connection = new SqliteConnection("DataSource=:memory:");
+                connection.Open();
+
+                return connection;
             });
 
-            var sp = services.BuildServiceProvider();
-
-            using (var scope = sp.CreateScope())
+            services.AddDbContext<ProductDbContext>((container, options) =>
             {
-                using (var appDbContext = scope.ServiceProvider.GetRequiredService<ProductDbContext>())
-                {
-                    try
-                    {
-                        appDbContext.Database.EnsureCreated();
-                    }
-                    catch (Exception ex)
-                    {
-                        throw;
-                    }
-                }
-            }
+                var connection = container.GetRequiredService<DbConnection>();
+                options.UseSqlite(connection);
+            });
         });
+
+        builder.UseEnvironment("Development");
     }
 }

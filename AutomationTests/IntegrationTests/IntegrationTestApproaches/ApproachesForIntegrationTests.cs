@@ -28,6 +28,8 @@ public class ApproachesForIntegrationTests : IClassFixture<WebApplicationFactory
         var responce = client.Send(new HttpRequestMessage(HttpMethod.Get, "Product/GetProducts"));
 
         responce.EnsureSuccessStatusCode();
+        var result = responce.Content.ReadAsStringAsync().Result;
+        result.Should().Contain("Intel Core i9");
     }
 
     /// <summary>
