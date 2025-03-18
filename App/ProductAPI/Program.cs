@@ -20,16 +20,6 @@ builder.Services.AddTransient<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<ProductDbContext>();
-
-    if (context.Database.IsRelational())
-    {
-        context.Database.Migrate();
-    }
-    context.Seed();
-}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -43,6 +33,27 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var container = scope.ServiceProvider;
+    var db = container.GetRequiredService<ProductDbContext>();
+
+    db.Database.EnsureCreated();
+
+    if (!db.Products.Any())
+    {
+        try
+        {
+            db.Seed();
+        }
+        catch (Exception ex)
+        {
+            var logger = container.GetRequiredService<ILogger<Program>>();
+            logger.LogError(ex, "An error occurred seeding the database. Error: {Message}", ex.Message);
+        }
+    }
+}
 
 app.Run();
 
