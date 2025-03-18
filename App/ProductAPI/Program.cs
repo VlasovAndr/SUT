@@ -22,7 +22,13 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    scope.ServiceProvider.GetRequiredService<ProductDbContext>().Database.Migrate();
+    var context = scope.ServiceProvider.GetRequiredService<ProductDbContext>();
+
+    if (context.Database.IsRelational())
+    {
+        context.Database.Migrate();
+    }
+    context.Seed();
 }
 
 // Configure the HTTP request pipeline.
@@ -39,3 +45,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }
