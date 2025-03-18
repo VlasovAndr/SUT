@@ -6,11 +6,11 @@ namespace IntegrationTest.IntegrationTestApproaches;
 
 public class ApproachesForIntegrationTests : IClassFixture<WebApplicationFactory<Program>>
 {
-    private readonly WebApplicationFactory<Program> webApplicationFactory;
+    private readonly WebApplicationFactory<Program> _webApplicationFactory;
 
     public ApproachesForIntegrationTests(WebApplicationFactory<Program> webApplicationFactory)
     {
-        this.webApplicationFactory = webApplicationFactory;
+        _webApplicationFactory = webApplicationFactory;
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public class ApproachesForIntegrationTests : IClassFixture<WebApplicationFactory
     [Fact]
     public async Task TestWithWebAppFactory()
     {
-        var webClient = webApplicationFactory.CreateClient();
+        var webClient = _webApplicationFactory.CreateClient();
 
         var product = await webClient.GetAsync("Product/GetProducts");
         var result = product.Content.ReadAsStringAsync().Result;
@@ -56,11 +56,11 @@ public class ApproachesForIntegrationTests : IClassFixture<WebApplicationFactory
     [Fact]
     public async Task TestWithWebAppFactoryAndGeneratedCode()
     {
-        var webClient = webApplicationFactory.CreateClient();
-        var product = new ProductAPI(ServicePathHelper.GetProductAPIUrl(), webClient);
+        var webClient = _webApplicationFactory.CreateClient();
+        var productClient = new ProductAPI(ServicePathHelper.GetProductAPIUrl(), webClient);
 
-        var results = await product.GetProductsAsync();
+        var products = await productClient.GetProductsAsync();
 
-        results.Should().HaveCount(5);
+        products.Should().HaveCount(5);
     }
 }
