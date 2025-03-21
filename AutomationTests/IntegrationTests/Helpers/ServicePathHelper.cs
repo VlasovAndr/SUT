@@ -1,4 +1,4 @@
-﻿namespace IntegrationTest.Helpers;
+﻿namespace IntegrationTests.Helpers;
 
 public class ServicePathHelper
 {

@@ -1,8 +1,9 @@
 using FluentAssertions;
-using IntegrationTest.Helpers;
+using IntegrationTest;
+using IntegrationTests.Helpers;
 using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace IntegrationTest.IntegrationTestApproaches;
+namespace IntegrationTests.IntegrationTestApproaches;
 
 public class ApproachesForIntegrationTests : IClassFixture<WebApplicationFactory<Program>>
 {
@@ -25,10 +26,10 @@ public class ApproachesForIntegrationTests : IClassFixture<WebApplicationFactory
         var client = new HttpClient();
         client.BaseAddress = new Uri(ServicePathHelper.GetProductAPIUrl());
 
-        var responce = client.Send(new HttpRequestMessage(HttpMethod.Get, "Product/GetProducts"));
+        var response = client.Send(new HttpRequestMessage(HttpMethod.Get, "Product/GetProducts"));
 
-        responce.EnsureSuccessStatusCode();
-        var result = responce.Content.ReadAsStringAsync().Result;
+        response.EnsureSuccessStatusCode();
+        var result = response.Content.ReadAsStringAsync().Result;
         result.Should().Contain("Intel Core i9");
     }
 
@@ -57,7 +58,7 @@ public class ApproachesForIntegrationTests : IClassFixture<WebApplicationFactory
     public async Task TestWithWebAppFactoryAndGeneratedCode()
     {
         var webClient = _webApplicationFactory.CreateClient();
-        var productClient = new ProductAPI(ServicePathHelper.GetProductAPIUrl(), webClient);
+        var productClient = new ProductAPIClient(ServicePathHelper.GetProductAPIUrl(), webClient);
 
         var products = await productClient.GetProductsAsync();
 

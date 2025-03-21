@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Data.Common;
 using Testcontainers.MsSql;
 
-namespace IntegrationTest;
+namespace IntegrationTests.WebAppFactories;
 
 public class CustomWebApplicationFactoryWithContainers<TProgram> : WebApplicationFactory<TProgram>, IAsyncLifetime
     where TProgram : class
