@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Data.Sqlite;
 using System.Data.Common;
 
-namespace IntegrationTest;
+namespace IntegrationTests.WebAppFactories;
 
 public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram>
     where TProgram : class

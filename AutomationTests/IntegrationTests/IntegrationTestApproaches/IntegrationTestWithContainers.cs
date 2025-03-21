@@ -1,7 +1,9 @@
 using FluentAssertions;
-using IntegrationTest.Helpers;
+using IntegrationTest;
+using IntegrationTests.Helpers;
+using IntegrationTests.WebAppFactories;
 
-namespace IntegrationTest.IntegrationTestApproaches;
+namespace IntegrationTests.IntegrationTestApproaches;
 
 public class IntegrationTestWithContainers : IClassFixture<CustomWebApplicationFactoryWithContainers<Program>>
 {
@@ -25,7 +27,7 @@ public class IntegrationTestWithContainers : IClassFixture<CustomWebApplicationF
     [Fact]
     public async Task TestWithCustomWebAppFactoryAndGeneratedCode()
     {
-        var productClient = new ProductAPI(_baseUrl, _client);
+        var productClient = new ProductAPIClient(_baseUrl, _client);
 
         var products = await productClient.GetProductsAsync();
 
