@@ -1,5 +1,7 @@
+using Azure;
 using Microsoft.AspNetCore.Mvc;
 using ProductAPI.Data;
+using ProductAPI.Errors;
 using ProductAPI.Repository;
 
 namespace ProductAPI.Controllers
@@ -16,42 +18,97 @@ namespace ProductAPI.Controllers
         }
 
         [HttpGet]
-        [Route("/[controller]/[action]/{id}")]
-        public Product GetProductById(int id)
+        [Route("GetProductById/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        public ActionResult<ApiResponse> GetProductById(int id)
         {
-            return productRepository.GetProductById(id);
+            var product = productRepository.GetProductById(id);
+
+            if (product == null)
+            {
+                return NotFound(new ApiResponse(StatusCodes.Status404NotFound));
+            }
+
+            var responce = new ApiResponse(StatusCodes.Status200OK);
+            responce.Result = product;
+
+            return Ok(responce);
         }
 
-        // GET: ProductController/GetProducts
         [HttpGet]
-        [Route("/[controller]/[action]")]
-        public ActionResult<List<Product>> GetProducts()
+        [Route("GetProducts")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<ApiResponse> GetProducts()
         {
-            return productRepository.GetAllProducts();
+            var products = productRepository.GetAllProducts();
+            var responce = new ApiResponse(StatusCodes.Status200OK);
+            responce.Result = products;
+
+            return Ok(responce);
         }
 
-        // POST: ProductController/Create
         [HttpPost]
-        [Route("/[controller]/[action]")]
-        public Product Create(Product product)
+        [Route("Create")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        public ActionResult<ApiResponse> Create(Product product)
         {
-            return productRepository.AddProduct(product);
+            try
+            {
+                var createdProduct = productRepository.AddProduct(product);
+                var responce = new ApiResponse(StatusCodes.Status201Created);
+                responce.Result = createdProduct;
+
+                return CreatedAtAction(nameof(GetProductById), new { id = product.Id }, responce);
+            }
+            catch (Exception ex)
+            {
+                var responce = new ApiResponse(StatusCodes.Status400BadRequest);
+                responce.Message += ex.Message;
+                return BadRequest(responce);
+            }
         }
 
-        // PUT: ProductController/Update
         [HttpPut]
-        [Route("/[controller]/[action]")]
-        public Product Update(Product product)
+        [Route("Update")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        public ActionResult<ApiResponse> Update(Product product)
         {
-            return productRepository.UpdateProduct(product);
+            try
+            {
+                var updatedProduct = productRepository.UpdateProduct(product);
+                var responce = new ApiResponse(StatusCodes.Status200OK);
+                responce.Result = product;
+                return Ok(responce);
+            }
+            catch (Exception ex)
+            {
+                var responce = new ApiResponse(StatusCodes.Status400BadRequest);
+                responce.Message += ex.Message;
+                return BadRequest(responce);
+            }
         }
 
-        // Delete: ProductController/Delete
         [HttpDelete]
-        [Route("/[controller]/[action]")]
-        public void Delete(int id)
+        [Route("Delete")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        public ActionResult<ApiResponse> Delete(int id)
         {
-            productRepository.DeleteProduct(id);
+            try
+            {
+                productRepository.DeleteProduct(id);
+                var responce = new ApiResponse(StatusCodes.Status200OK);
+                return Ok(responce);
+            }
+            catch (Exception ex)
+            {
+                var responce = new ApiResponse(StatusCodes.Status400BadRequest);
+                responce.Message += ex.Message;
+                return BadRequest(responce);
+            }
         }
     }
 }
