@@ -55,7 +55,7 @@ services:
 
   ea_int_test:
     image: ea_int_test
-    container_name: eaintegrationtest
+    container_name: ea_int_test
     build:
       context: .
       dockerfile: AutomationTests/IntegrationTests/Dockerfile
