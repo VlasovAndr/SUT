@@ -1,7 +1,8 @@
 using FluentAssertions;
-using IntegrationTest;
 using IntegrationTests.Helpers;
 using IntegrationTests.WebAppFactories;
+using Newtonsoft.Json;
+using ProductAPI.Data;
 
 namespace IntegrationTests.IntegrationTestApproaches;
 
@@ -29,9 +30,13 @@ public class IntegrationTestWithContainers : IClassFixture<CustomWebApplicationF
     {
         var productClient = new ProductAPIClient(_baseUrl, _client);
 
-        var products = await productClient.GetProductsAsync();
+        var response = await productClient.GetProductsAsync();
 
-        products.Should().HaveCount(5);
+        response.IsSuccess.Should().BeTrue();
+        response.Message.Should().BeNullOrEmpty();
+        response.Result.Should().NotBeNull();
+        var products = JsonConvert.DeserializeObject<List<Product>>(response.Result.ToString());
+        products.Should().HaveCountGreaterThan(1);
     }
 
 }

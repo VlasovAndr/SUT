@@ -59,12 +59,14 @@ services:
     build:
       context: .
       dockerfile: AutomationTests/IntegrationTests/Dockerfile
-    depends_on:
-      - ea_api
+    # depends_on:
+    #   - ea_api
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - ASPNETCORE_ENVIRONMENT=remote
-    networks:
-      - ea_network
+    # networks:
+    #   - ea_network
 
   # node-docker:
   #   image: selenium/node-docker:4.1.1-20211217

@@ -3,15 +3,14 @@ USER app
 WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["AutomationTests/IntegrationTests/IntegrationTests.csproj", "AutomationTests/IntegrationTests/"]
 COPY ["App/ProductAPI/ProductAPI.csproj", "App/ProductAPI/"]
 RUN dotnet restore "./AutomationTests/IntegrationTests/IntegrationTests.csproj"
 COPY . .
 WORKDIR "/src/AutomationTests/IntegrationTests"
-RUN dotnet build "./IntegrationTests.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./IntegrationTests.csproj" -c Release -o /app/build
 
-FROM build AS IntegrationTests
+FROM build AS integrationtests
 WORKDIR /src/AutomationTests/IntegrationTests
-CMD ["dotnet", "test"]
+CMD ["dotnet", "test", "--no-build", "--filter", "Category=IntegrationTests", "--verbosity", "detailed"]

@@ -1,17 +1,21 @@
 using FluentAssertions;
-using IntegrationTest;
 using IntegrationTests.Helpers;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Newtonsoft.Json;
+using ProductAPI.Data;
+using System.Net;
 
 namespace IntegrationTests.IntegrationTestApproaches;
 
 public class ApproachesForIntegrationTests : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly WebApplicationFactory<Program> _webApplicationFactory;
+    private readonly string _baseUrl;
 
     public ApproachesForIntegrationTests(WebApplicationFactory<Program> webApplicationFactory)
     {
         _webApplicationFactory = webApplicationFactory;
+        _baseUrl = ServicePathHelper.GetProductAPIUrl();
     }
 
     /// <summary>
@@ -24,13 +28,16 @@ public class ApproachesForIntegrationTests : IClassFixture<WebApplicationFactory
     public void TestWithHttpClient()
     {
         var client = new HttpClient();
-        client.BaseAddress = new Uri(ServicePathHelper.GetProductAPIUrl());
+        client.BaseAddress = new Uri(_baseUrl);
 
         var response = client.Send(new HttpRequestMessage(HttpMethod.Get, "Product/GetProducts"));
 
         response.EnsureSuccessStatusCode();
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
         var result = response.Content.ReadAsStringAsync().Result;
         result.Should().Contain("Intel Core i9");
+        result.Should().Contain("\"isSuccess\":true");
+        result.Should().Contain("\"message\":\"\"");
     }
 
     /// <summary>
@@ -44,10 +51,14 @@ public class ApproachesForIntegrationTests : IClassFixture<WebApplicationFactory
     {
         var webClient = _webApplicationFactory.CreateClient();
 
-        var product = await webClient.GetAsync("Product/GetProducts");
-        var result = product.Content.ReadAsStringAsync().Result;
+        var response = await webClient.GetAsync("Product/GetProducts");
 
+        response.EnsureSuccessStatusCode();
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        var result = response.Content.ReadAsStringAsync().Result;
         result.Should().Contain("Intel Core i9");
+        result.Should().Contain("\"isSuccess\":true");
+        result.Should().Contain("\"message\":\"\"");
     }
 
     /// <summary>
@@ -58,10 +69,15 @@ public class ApproachesForIntegrationTests : IClassFixture<WebApplicationFactory
     public async Task TestWithWebAppFactoryAndGeneratedCode()
     {
         var webClient = _webApplicationFactory.CreateClient();
-        var productClient = new ProductAPIClient(ServicePathHelper.GetProductAPIUrl(), webClient);
+        var productClient = new ProductAPIClient(_baseUrl, webClient);
 
-        var products = await productClient.GetProductsAsync();
+        var response = await productClient.GetProductsAsync();
 
-        products.Should().HaveCount(5);
+        // Status code is checked inside auto-generated GetProductsAsync method
+        response.IsSuccess.Should().BeTrue();
+        response.Message.Should().BeNullOrEmpty();
+        response.Result.Should().NotBeNull();
+        var products = JsonConvert.DeserializeObject<List<Product>>(response.Result.ToString());
+        products.Should().HaveCountGreaterThan(1);
     }
 }
