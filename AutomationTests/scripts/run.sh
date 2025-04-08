@@ -13,7 +13,7 @@ docker compose -p "$project" build
 
 mkdir -m 777 reports
 docker compose -p "$project" up --no-deps ea_int_test
-docker-compose logs
+docker compose logs
 docker compose -p "$project" up -d ea_api ea_webapp db chrome firefox selenium-hub
 docker compose -p "$project" up --no-deps ea_test
 
