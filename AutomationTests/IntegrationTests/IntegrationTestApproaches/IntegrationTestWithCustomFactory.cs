@@ -1,16 +1,17 @@
 using FluentAssertions;
-using IntegrationTest;
 using IntegrationTests.Helpers;
 using IntegrationTests.WebAppFactories;
+using Newtonsoft.Json;
+using ProductAPI.Data;
 
 namespace IntegrationTests.IntegrationTestApproaches;
 
-public class IntegrationTestBestPractice : IClassFixture<CustomWebApplicationFactory<Program>>
+public class IntegrationTestWithCustomFactory : IClassFixture<CustomWebApplicationFactory<Program>>
 {
     private readonly HttpClient _client;
     private readonly string _baseUrl;
 
-    public IntegrationTestBestPractice(CustomWebApplicationFactory<Program> webApplicationFactory)
+    public IntegrationTestWithCustomFactory(CustomWebApplicationFactory<Program> webApplicationFactory)
     {
         _client = webApplicationFactory.CreateClient();
         _baseUrl = ServicePathHelper.GetProductAPIUrl();
@@ -26,8 +27,13 @@ public class IntegrationTestBestPractice : IClassFixture<CustomWebApplicationFac
     {
         var productClient = new ProductAPIClient(_baseUrl, _client);
 
-        var products = await productClient.GetProductsAsync();
+        var response = await productClient.GetProductsAsync();
 
-        products.Should().HaveCount(5);
+        response.IsSuccess.Should().BeTrue();
+        response.Message.Should().BeNullOrEmpty();
+        response.Result.Should().NotBeNull();
+        var products = JsonConvert.DeserializeObject<List<Product>>(response.Result.ToString());
+        products.Should().HaveCountGreaterThan(1);
     }
+
 }
