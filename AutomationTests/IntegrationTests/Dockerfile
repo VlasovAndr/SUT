@@ -13,5 +13,4 @@ RUN dotnet build "./IntegrationTests.csproj" -c Release -o /app/build
 
 FROM build AS integrationtests
 WORKDIR /src/AutomationTests/IntegrationTests
-# CMD ["dotnet", "test", "--filter", "Category=IntegrationTests", "--no-build", "--verbosity", "detailed"]
 CMD ["dotnet", "test", "--filter", "Category=IntegrationTests"]
