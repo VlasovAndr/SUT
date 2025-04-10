@@ -10,9 +10,9 @@ cd "$(dirname "${0}")/.."
 export COMPOSE_HTTP_TIMEOUT=200
 
 docker compose -p "$project" build
-docker compose -p "$project" up ea_int_test
+docker compose -p "$project" up ea_api_test
 
-exit_code=$(docker inspect ea_int_test --format='{{.State.ExitCode}}')
+exit_code=$(docker inspect ea_api_test --format='{{.State.ExitCode}}')
 
 if [ $exit_code -eq 0 ]; then
     exit $exit_code
