@@ -55,18 +55,27 @@ services:
 
   ea_int_test:
     image: ea_int_test
-    container_name: eaintegrationtest
+    container_name: ea_int_test
     build:
       context: .
       dockerfile: AutomationTests/IntegrationTests/Dockerfile
-    # depends_on:
-    #   - ea_api
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - ASPNETCORE_ENVIRONMENT=remote
-    # networks:
-    #   - ea_network
+      - TEST_CATEGORY=IntegrationTests
+
+  ea_api_test:
+    image: ea_api_test
+    container_name: ea_api_test
+    build:
+      context: .
+      dockerfile: AutomationTests/IntegrationTests/Dockerfile
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - ASPNETCORE_ENVIRONMENT=remote
+      - TEST_CATEGORY=APITests
 
   # node-docker:
   #   image: selenium/node-docker:4.1.1-20211217

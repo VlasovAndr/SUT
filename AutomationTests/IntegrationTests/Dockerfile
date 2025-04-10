@@ -13,4 +13,6 @@ RUN dotnet build "./IntegrationTests.csproj" -c Release -o /app/build
 
 FROM build AS integrationtests
 WORKDIR /src/AutomationTests/IntegrationTests
-CMD ["dotnet", "test", "--no-build", "--filter", "Category=IntegrationTests", "--verbosity", "detailed"]
+ARG TEST_CATEGORY
+ENV TEST_CATEGORY=${TEST_CATEGORY:-default_value}
+ENTRYPOINT ["sh", "-c", "dotnet test --filter Category=$TEST_CATEGORY"]

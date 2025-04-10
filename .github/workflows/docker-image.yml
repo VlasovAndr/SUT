@@ -14,10 +14,20 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Running the script file
+    - name: Running integration tests
       run: |
-        echo --Running Tests ---
-        sh ./AutomationTests/scripts/run.sh
+        echo --Running Integration Tests ---
+        sh ./AutomationTests/scripts/run_int_tests.sh
+
+    - name: Running API tests
+      run: |
+        echo --Running API Tests ---
+        sh ./AutomationTests/scripts/run_api_tests.sh
+
+    - name: Running UI tests
+      run: |
+        echo --Running UI Tests ---
+        sh ./AutomationTests/scripts/run_ui_tests.sh
     
     - name: Publish the reports folder as artifact
       uses: actions/upload-artifact@v4
