@@ -11,6 +11,7 @@ RUN dotnet restore "App/ProductAPI/ProductAPI.csproj"
 COPY . .
 WORKDIR "/src/App/ProductAPI"
 RUN dotnet build "ProductAPI.csproj" -c Release -o /app/build
+RUN dotnet test
 
 FROM build AS publish
 RUN dotnet publish "ProductAPI.csproj" -c Release -o /app/publish
